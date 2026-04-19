@@ -388,8 +388,8 @@ body {
 /* ── TIMER OVERLAY ── */
 .timer-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.88);
-  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(12px);
   z-index: 200;
   display: none;
   align-items: center;
@@ -400,8 +400,8 @@ body {
 .timer-box {
   background: var(--panel);
   border: 1px solid var(--border2);
-  border-radius: 28px;
-  padding: 40px 48px;
+  border-radius: 32px;
+  padding: 36px 48px 32px;
   text-align: center;
   min-width: 280px;
 }
@@ -412,19 +412,49 @@ body {
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
+/* SVG Ring Timer */
+.timer-ring-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 24px;
+}
+.timer-ring-wrap svg { transform: rotate(-90deg); }
+.timer-ring-bg { fill: none; stroke: var(--dim); stroke-width: 6; }
+.timer-ring-progress {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear, stroke 0.3s;
+}
+.timer-ring-progress.done-ring { stroke: var(--green); }
+.timer-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .timer-count {
   font-family: var(--head);
-  font-size: 80px;
+  font-size: 52px;
   font-weight: 900;
   color: var(--accent);
   line-height: 1;
-  margin-bottom: 28px;
-  letter-spacing: -3px;
+  letter-spacing: -2px;
 }
 .timer-count.done-c { color: var(--green); }
+.timer-sec-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 2px;
+}
 
 .timer-actions { display: flex; gap: 10px; justify-content: center; }
 
@@ -449,6 +479,89 @@ body {
   font-size: 13px;
   font-weight: 900;
   cursor: pointer;
+}
+
+/* ── PROG GROUP METER ── */
+.prog-group-meter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.prog-meter-bar {
+  width: 60px;
+  height: 4px;
+  background: var(--dim);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.prog-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+.prog-meter-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ── MINULE CHIP ── */
+.ex-last-chips {
+  display: flex;
+  gap: 5px;
+  padding: 5px 16px 0;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.ex-last-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.ex-last-chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  background: rgba(232,255,71,0.08);
+  border: 1px solid rgba(232,255,71,0.18);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+/* ── STATS SUMMARY ── */
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.stats-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 10px;
+  text-align: center;
+}
+.stats-card-val {
+  font-family: var(--head);
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stats-card-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* ── PROGRESSION ── */
@@ -730,10 +843,26 @@ canvas { width: 100% !important; border-radius: 10px; }
 
 <!-- PROGRESSION -->
 <div class="page" id="page-progress">
-  <div class="prog-group"><div class="prog-group-title">💪 Kľuky</div><div id="prog-kliky"></div></div>
-  <div class="prog-group"><div class="prog-group-title">🏋️ Príťahy / Ťahy</div><div id="prog-pritahy"></div></div>
-  <div class="prog-group"><div class="prog-group-title">🦵 Drepy</div><div id="prog-drepy"></div></div>
-  <div class="prog-group"><div class="prog-group-title">🔥 Core</div><div id="prog-core"></div></div>
+  <div class="prog-group">
+    <div class="prog-group-title">💪 Kľuky
+      <div class="prog-group-meter"><div class="prog-meter-bar"><div class="prog-meter-fill" id="meter-kliky"></div></div><span class="prog-meter-label" id="meter-kliky-txt"></span></div>
+    </div><div id="prog-kliky"></div>
+  </div>
+  <div class="prog-group">
+    <div class="prog-group-title">🏋️ Príťahy / Ťahy
+      <div class="prog-group-meter"><div class="prog-meter-bar"><div class="prog-meter-fill" id="meter-pritahy"></div></div><span class="prog-meter-label" id="meter-pritahy-txt"></span></div>
+    </div><div id="prog-pritahy"></div>
+  </div>
+  <div class="prog-group">
+    <div class="prog-group-title">🦵 Drepy
+      <div class="prog-group-meter"><div class="prog-meter-bar"><div class="prog-meter-fill" id="meter-drepy"></div></div><span class="prog-meter-label" id="meter-drepy-txt"></span></div>
+    </div><div id="prog-drepy"></div>
+  </div>
+  <div class="prog-group">
+    <div class="prog-group-title">🔥 Core
+      <div class="prog-group-meter"><div class="prog-meter-bar"><div class="prog-meter-fill" id="meter-core"></div></div><span class="prog-meter-label" id="meter-core-txt"></span></div>
+    </div><div id="prog-core"></div>
+  </div>
 </div>
 
 <!-- HISTÓRIA -->
@@ -743,6 +872,7 @@ canvas { width: 100% !important; border-radius: 10px; }
 
 <!-- GRAF -->
 <div class="page" id="page-stats">
+  <div class="stats-summary" id="statsSummary"></div>
   <div class="chart-wrap">
     <div class="chart-title">Progres opakovaní</div>
     <select class="chart-select" id="chartExSelect" onchange="renderChart()"></select>
@@ -755,7 +885,17 @@ canvas { width: 100% !important; border-radius: 10px; }
 <div class="timer-overlay" id="timerOverlay">
   <div class="timer-box">
     <div class="timer-label">Pauza medzi sériami</div>
-    <div class="timer-count" id="timerCount">90</div>
+    <div class="timer-ring-wrap">
+      <svg width="160" height="160" viewBox="0 0 160 160">
+        <circle class="timer-ring-bg" cx="80" cy="80" r="68"/>
+        <circle class="timer-ring-progress" id="timerRing" cx="80" cy="80" r="68"
+          stroke-dasharray="427" stroke-dashoffset="0"/>
+      </svg>
+      <div class="timer-center">
+        <div class="timer-count" id="timerCount">90</div>
+        <div class="timer-sec-label">sekúnd</div>
+      </div>
+    </div>
     <div class="timer-actions">
       <button class="timer-skip" onclick="skipTimer()">Preskočiť</button>
       <button class="timer-stop" onclick="stopTimer()">Zastaviť</button>
@@ -890,9 +1030,34 @@ function showPage(page, el) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-'+page).classList.add('active');
   if (el) el.classList.add('active');
+  sS('kt_lastPage', page);
   if (page==='history') renderHistory();
   if (page==='progress') renderProgression();
-  if (page==='stats') { populateChartSelect(); renderChart(); }
+  if (page==='stats') { renderStatsSummary(); populateChartSelect(); renderChart(); }
+}
+
+function renderStatsSummary() {
+  const history = gS('kt_history', []);
+  const total = history.length;
+  const streak = calcStreak();
+  const sevenDaysAgo = new Date(); sevenDaysAgo.setDate(sevenDaysAgo.getDate()-7);
+  const last7 = history.filter(h => new Date(h.date) >= sevenDaysAgo).length;
+  const el = document.getElementById('statsSummary');
+  if (!el) return;
+  el.innerHTML = `
+    <div class="stats-card">
+      <div class="stats-card-val">${total}</div>
+      <div class="stats-card-label">Celkom</div>
+    </div>
+    <div class="stats-card">
+      <div class="stats-card-val">${last7}</div>
+      <div class="stats-card-label">7 dní</div>
+    </div>
+    <div class="stats-card">
+      <div class="stats-card-val" style="color:var(--accent2)">${streak}🔥</div>
+      <div class="stats-card-label">Séria</div>
+    </div>
+  `;
 }
 
 // Header
@@ -955,16 +1120,22 @@ function renderExercises() {
   list.innerHTML = '';
   resolvedExercises.forEach((ex, idx) => {
     const last = getLastSeries(currentDay, ex.id);
-    const lastHtml = last
-      ? `<div class="ex-last"><span>Minule: </span>${last.map(v=>v||'—').join(' · ')}</div>` : '';
+    let lastHtml = '';
+    if (last && last.some(v=>v)) {
+      const chips = last.map((v,i) =>
+        `<span class="ex-last-chip">${v||'—'}</span>`
+      ).join('');
+      lastHtml = `<div class="ex-last-chips"><span class="ex-last-label">Minule:</span>${chips}</div>`;
+    }
     const progBadge = ex.isProgLinked
       ? `<span class="level-badge">Lv ${ex.levelIndex+1}</span>` : '';
 
     let inputs = '';
     for (let i=0; i<ex.series; i++) {
+      const hint = last && last[i] ? `placeholder="${last[i]}"` : `placeholder="—"`;
       inputs += `<div class="serie-wrap">
         <div class="serie-label">Séria ${i+1}</div>
-        <input class="serie-input" type="number" min="0" max="99" placeholder="—"
+        <input class="serie-input" type="number" min="0" max="99" ${hint}
           id="ex-${idx}-s${i}" inputmode="numeric">
       </div>`;
     }
@@ -1038,21 +1209,31 @@ function saveTraining() {
 // ═══════════════════════════════ TIMER
 let timerInterval = null;
 let timerSeconds = 0;
+const TIMER_TOTAL = 90;
+const RING_CIRC = 2 * Math.PI * 68; // 427.26
 
 function startTimer(idx) {
-  timerSeconds = 90;
-  document.getElementById('timerCount').textContent = timerSeconds;
-  document.getElementById('timerCount').className = 'timer-count';
+  timerSeconds = TIMER_TOTAL;
+  const ring = document.getElementById('timerRing');
+  const count = document.getElementById('timerCount');
+  count.textContent = timerSeconds;
+  count.className = 'timer-count';
+  ring.className = 'timer-ring-progress';
+  ring.style.strokeDashoffset = '0';
   document.getElementById('timerOverlay').classList.add('show');
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     timerSeconds--;
-    document.getElementById('timerCount').textContent = timerSeconds;
+    count.textContent = timerSeconds;
+    const progress = 1 - (timerSeconds / TIMER_TOTAL);
+    ring.style.strokeDashoffset = (RING_CIRC * progress).toFixed(1);
     if (timerSeconds <= 0) {
       clearInterval(timerInterval);
-      document.getElementById('timerCount').textContent = '✓';
-      document.getElementById('timerCount').className = 'timer-count done-c';
-      setTimeout(() => document.getElementById('timerOverlay').classList.remove('show'), 1200);
+      count.textContent = '✓';
+      count.className = 'timer-count done-c';
+      ring.className = 'timer-ring-progress done-ring';
+      ring.style.strokeDashoffset = RING_CIRC.toFixed(1);
+      setTimeout(() => document.getElementById('timerOverlay').classList.remove('show'), 1400);
     }
   }, 1000);
 }
@@ -1067,6 +1248,14 @@ function renderProgression() {
     const current = getProgLevel(key);
     const container = document.getElementById('prog-'+key);
     container.innerHTML = '';
+
+    // Update meter
+    const pct = Math.round((current / group.levels.length) * 100);
+    const meterFill = document.getElementById('meter-'+key);
+    const meterTxt = document.getElementById('meter-'+key+'-txt');
+    if (meterFill) meterFill.style.width = pct+'%';
+    if (meterTxt) meterTxt.textContent = `${current}/${group.levels.length}`;
+
     group.levels.forEach((lv, idx) => {
       const isCur = idx === current;
       const isDone = idx < current;
