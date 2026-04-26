@@ -10,190 +10,201 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #F5F2ED; --surface: #FFFFFF; --surface2: #FAF8F5;
-  --ink: #1A1A1A; --ink2: #5C5C5C; --ink3: #9A9A9A; --border: #E8E3DA;
-  --green: #2A6B4A; --green-mid: #4A9B72; --green-light: #EAF4EE; --green-xlight: #F3FAF6;
-  --amber: #C8722A; --amber-light: #FDF3EA;
-  --blue: #2856A3; --blue-light: #EEF3FC;
-  --red: #C0392B; --red-light: #FDECEA;
-  --gold: #B8860B; --gold-light: #FBF7E8;
-  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06); --shadow: 0 2px 12px rgba(0,0,0,0.08);
-  --r: 14px; --r-sm: 8px;
+  --bg:#F5F2ED;--surface:#FFF;--surface2:#FAF8F5;
+  --ink:#1A1A1A;--ink2:#5C5C5C;--ink3:#9A9A9A;--border:#E8E3DA;
+  --green:#2A6B4A;--green-mid:#4A9B72;--green-light:#EAF4EE;--green-xlight:#F3FAF6;
+  --amber:#C8722A;--amber-light:#FDF3EA;
+  --blue:#2856A3;--blue-light:#EEF3FC;
+  --red:#C0392B;--red-light:#FDECEA;
+  --gold:#B8860B;--gold-light:#FBF7E8;
+  --shadow-sm:0 1px 4px rgba(0,0,0,.06);--shadow:0 2px 12px rgba(0,0,0,.08);
+  --r:14px;--r-sm:8px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; font-size: 15px; line-height: 1.5; padding-bottom: 90px; }
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.5;padding-bottom:90px}
 
 /* HEADER */
-.app-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 20px 12px; position: sticky; top: 0; z-index: 200; box-shadow: var(--shadow-sm); }
-.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.app-title { font-family: 'Playfair Display', serif; font-size: 21px; color: var(--green); }
-.app-subtitle { font-size: 12px; color: var(--ink3); }
-.phase-badge { background: var(--green); color: #fff; font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 20px; }
-.phase-bar-wrap { display: flex; align-items: center; gap: 6px; }
-.phase-bar-segs { display: flex; gap: 3px; flex: 1; }
-.pb-seg { flex: 1; height: 5px; border-radius: 3px; background: var(--border); transition: background 0.4s; }
-.pb-seg.done { background: var(--green-mid); }
-.pb-seg.active { background: var(--green); }
-.phase-bar-label { font-size: 11px; color: var(--ink3); white-space: nowrap; }
+.app-header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 20px 12px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm)}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.app-title{font-family:'Playfair Display',serif;font-size:21px;color:var(--green)}
+.app-subtitle{font-size:12px;color:var(--ink3)}
+.phase-badge{background:var(--green);color:#fff;font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px}
+.phase-bar-wrap{display:flex;align-items:center;gap:6px}
+.phase-bar-segs{display:flex;gap:3px;flex:1}
+.pb-seg{flex:1;height:5px;border-radius:3px;background:var(--border);transition:background .4s}
+.pb-seg.done{background:var(--green-mid)}.pb-seg.active{background:var(--green)}
+.phase-bar-label{font-size:11px;color:var(--ink3);white-space:nowrap}
 
 /* BOTTOM NAV */
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); display: flex; z-index: 200; box-shadow: 0 -2px 12px rgba(0,0,0,0.07); }
-.nav-btn { flex: 1; padding: 10px 4px 12px; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; border: none; background: none; transition: all 0.2s; }
-.nav-btn .nav-icon { font-size: 22px; transition: transform 0.2s; }
-.nav-btn .nav-label { font-size: 10px; font-weight: 600; color: var(--ink3); letter-spacing: 0.3px; text-transform: uppercase; }
-.nav-btn.active .nav-icon { transform: scale(1.15); }
-.nav-btn.active .nav-label { color: var(--green); }
-.nav-btn:active .nav-icon { transform: scale(0.9); }
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:200;box-shadow:0 -2px 12px rgba(0,0,0,.07)}
+.nav-btn{flex:1;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;border:none;background:none;transition:all .2s}
+.nav-btn .nav-icon{font-size:22px;transition:transform .2s}
+.nav-btn .nav-label{font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:.3px;text-transform:uppercase}
+.nav-btn.active .nav-icon{transform:scale(1.15)}.nav-btn.active .nav-label{color:var(--green)}
+.nav-btn:active .nav-icon{transform:scale(.9)}
 
 /* SCREENS */
-.screen { display: none; padding: 20px 16px; }
-.screen.active { display: block; animation: fadeUp 0.25s ease; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.screen{display:none;padding:20px 16px}
+.screen.active{display:block;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* TYPOGRAPHY */
-.sec-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
-.sec-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--ink); margin-bottom: 4px; }
-.sec-sub { font-size: 13px; color: var(--ink2); margin-bottom: 20px; }
+.sec-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.sec-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--ink);margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--ink2);margin-bottom:20px}
 
 /* CARDS */
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:12px;box-shadow:var(--shadow-sm)}
 
 /* TODAY CARD */
-.today-card { background: var(--green); border-radius: var(--r); padding: 20px; margin-bottom: 14px; color: white; position: relative; overflow: hidden; }
-.today-card::after { content: ''; position: absolute; right: -20px; top: -20px; width: 110px; height: 110px; border-radius: 50%; background: rgba(255,255,255,0.06); pointer-events: none; }
-.today-label { font-size: 11px; font-weight: 600; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
-.today-name { font-family: 'Playfair Display', serif; font-size: 21px; margin-bottom: 2px; }
-.today-sub { font-size: 13px; opacity: 0.8; margin-bottom: 16px; }
-.today-actions { display: flex; gap: 8px; }
-.today-btn { background: white; color: var(--green); border: none; border-radius: 10px; padding: 10px 18px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.15s; flex: 1; }
-.today-btn:active { transform: scale(0.97); }
-.today-btn.secondary { background: rgba(255,255,255,0.15); color: white; border: 1.5px solid rgba(255,255,255,0.4); flex: none; }
+.today-card{background:var(--green);border-radius:var(--r);padding:20px;margin-bottom:14px;color:white;position:relative;overflow:hidden}
+.today-card::after{content:'';position:absolute;right:-20px;top:-20px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+.today-label{font-size:11px;font-weight:600;opacity:.7;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.today-name{font-family:'Playfair Display',serif;font-size:21px;margin-bottom:2px}
+.today-sub{font-size:13px;opacity:.8;margin-bottom:16px}
+.today-btn{background:white;color:var(--green);border:none;border-radius:10px;padding:10px 18px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .15s;width:100%}
+.today-btn:active{transform:scale(.97)}
 
-/* PROGRESS CARD */
-.progress-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
-.prog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.prog-title { font-weight: 700; font-size: 15px; }
-.prog-count { font-size: 13px; color: var(--ink2); }
-.prog-count strong { color: var(--green); font-size: 20px; }
-.prog-bar-bg { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; margin-bottom: 8px; }
-.prog-bar-fill { height: 100%; background: var(--green); border-radius: 5px; transition: width 0.5s ease; }
-.prog-milestones { display: flex; justify-content: space-between; }
-.prog-milestone { font-size: 10px; color: var(--ink3); text-align: center; }
-.prog-milestone.reached { color: var(--green); font-weight: 600; }
+/* PROGRESS */
+.progress-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.prog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.prog-title{font-weight:700;font-size:15px}
+.prog-count{font-size:13px;color:var(--ink2)}
+.prog-count strong{color:var(--green);font-size:20px}
+.prog-bar-bg{height:10px;background:var(--border);border-radius:5px;overflow:hidden;margin-bottom:8px}
+.prog-bar-fill{height:100%;background:var(--green);border-radius:5px;transition:width .5s ease}
+.prog-milestones{display:flex;justify-content:space-between}
+.prog-milestone{font-size:10px;color:var(--ink3);text-align:center}
+.prog-milestone.reached{color:var(--green);font-weight:600}
 
 /* WEEK STRIP */
-.week-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 14px; }
-.day-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 8px 4px; text-align: center; }
-.day-pill.training { border-color: var(--green-mid); background: var(--green-xlight); }
-.day-pill.rest { border-color: var(--gold); background: var(--gold-light); }
-.day-pill.today-pill { border-color: var(--green); background: var(--green); }
-.dp-name { font-size: 9px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--ink3); }
-.today-pill .dp-name, .today-pill .dp-type { color: rgba(255,255,255,0.85); }
-.dp-icon { font-size: 15px; margin: 3px 0; }
-.dp-type { font-size: 9px; color: var(--ink3); font-weight: 500; }
+.week-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:14px}
+.day-pill{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 4px;text-align:center}
+.day-pill.training{border-color:var(--green-mid);background:var(--green-xlight)}
+.day-pill.rest{border-color:var(--gold);background:var(--gold-light)}
+.day-pill.today-pill{border-color:var(--green);background:var(--green)}
+.dp-name{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.today-pill .dp-name,.today-pill .dp-type{color:rgba(255,255,255,.85)}
+.dp-icon{font-size:15px;margin:3px 0}
+.dp-type{font-size:9px;color:var(--ink3);font-weight:500}
 
 /* SUPP QUICK */
-.supp-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-.sq-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 11px; display: flex; align-items: center; gap: 9px; }
-.sq-icon { font-size: 18px; flex-shrink: 0; }
-.sq-name { font-size: 12px; font-weight: 600; }
-.sq-time { font-size: 11px; color: var(--ink3); }
+.supp-quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.sq-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px;display:flex;align-items:center;gap:9px}
+.sq-icon{font-size:18px;flex-shrink:0}
+.sq-name{font-size:12px;font-weight:600}
+.sq-time{font-size:11px;color:var(--ink3)}
 
 /* INFO BOXES */
-.info-box { border-radius: var(--r); padding: 14px 16px; margin-bottom: 12px; display: flex; gap: 12px; }
-.info-box.warn { background: var(--amber-light); border: 1px solid #F0B070; }
-.info-box.info { background: var(--blue-light); border: 1px solid #A8C0E8; }
-.info-box.success { background: var(--green-light); border: 1px solid #8DC4A8; }
-.info-icon { font-size: 22px; flex-shrink: 0; }
-.info-title { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
-.info-text { font-size: 12px; line-height: 1.6; }
-.warn .info-title, .warn .info-text { color: #8B4A00; }
-.info .info-title, .info .info-text { color: #1A3570; }
-.success .info-title, .success .info-text { color: var(--green); }
+.info-box{border-radius:var(--r);padding:14px 16px;margin-bottom:12px;display:flex;gap:12px}
+.info-box.warn{background:var(--amber-light);border:1px solid #F0B070}
+.info-box.info{background:var(--blue-light);border:1px solid #A8C0E8}
+.info-box.success{background:var(--green-light);border:1px solid #8DC4A8}
+.info-icon{font-size:22px;flex-shrink:0}
+.info-title{font-weight:700;font-size:13px;margin-bottom:3px}
+.info-text{font-size:12px;line-height:1.6}
+.warn .info-title,.warn .info-text{color:#8B4A00}
+.info .info-title,.info .info-text{color:#1A3570}
+.success .info-title,.success .info-text{color:var(--green)}
 
 /* PHASE TABS */
-.phase-tabs { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
-.phase-tabs::-webkit-scrollbar { display: none; }
-.ptab { padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; white-space: nowrap; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); color: var(--ink2); transition: all 0.2s; flex-shrink: 0; }
-.ptab.active { background: var(--green); border-color: var(--green); color: white; }
-.ptab.unlocked { border-color: var(--green-mid); color: var(--green); }
-.ptab.locked { opacity: 0.4; cursor: default; }
+.phase-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.phase-tabs::-webkit-scrollbar{display:none}
+.ptab{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap;cursor:pointer;border:1.5px solid var(--border);background:var(--surface);color:var(--ink2);transition:all .2s;flex-shrink:0}
+.ptab.active{background:var(--green);border-color:var(--green);color:white}
+.ptab.unlocked{border-color:var(--green-mid);color:var(--green)}
+.ptab.locked{opacity:.4;cursor:default}
 
 /* DAY TABS */
-.day-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
-.dtab { padding: 6px 13px; border-radius: 16px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); color: var(--ink2); transition: all 0.2s; }
-.dtab.active { background: var(--green-light); border-color: var(--green); color: var(--green); }
-.dtab.rest { background: var(--gold-light); border-color: var(--gold); color: var(--gold); cursor: default; }
-.dtab.completed { position: relative; }
-.dtab.completed::after { content: '✓'; margin-left: 4px; font-size: 11px; }
+.day-tabs{display:flex;gap:5px;margin-bottom:14px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.day-tabs::-webkit-scrollbar{display:none}
+.dtab{padding:6px 11px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:var(--surface);color:var(--ink2);transition:all .2s;white-space:nowrap;flex-shrink:0}
+.dtab.active{background:var(--green-light);border-color:var(--green);color:var(--green)}
+.dtab.rest{background:var(--gold-light);border-color:var(--gold);color:var(--gold);cursor:default}
 
 /* COMPLETE BUTTON */
-.complete-day-wrap { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
-.complete-day-btn { width: 100%; padding: 15px; background: var(--green); color: white; border: none; border-radius: var(--r); font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.2s; }
-.complete-day-btn:active { transform: scale(0.98); }
-.complete-day-btn.already-done { background: var(--border); color: var(--ink3); cursor: default; }
-.complete-day-btn.already-done:active { transform: none; }
+.complete-day-wrap{margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.complete-day-btn{width:100%;padding:15px;background:var(--green);color:white;border:none;border-radius:var(--r);font-family:'Outfit',sans-serif;font-weight:700;font-size:16px;cursor:pointer;transition:all .2s}
+.complete-day-btn:active{transform:scale(.98)}
+.complete-day-btn.already-done{background:var(--border);color:var(--ink3);cursor:default}
+.complete-day-btn.already-done:active{transform:none}
 
 /* EXERCISE CARDS */
-.ex-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r); margin-bottom: 10px; overflow: hidden; box-shadow: var(--shadow-sm); transition: border-color 0.2s; }
-.ex-card.open { border-color: var(--green); }
-.ex-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; user-select: none; }
-.ex-num { width: 32px; height: 32px; border-radius: 50%; background: var(--green-light); color: var(--green); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.ex-info { flex: 1; }
-.ex-name { font-weight: 600; font-size: 15px; margin-bottom: 3px; }
-.ex-meta { display: flex; gap: 5px; flex-wrap: wrap; }
-.tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
-.tag-green { background: var(--green-light); color: var(--green); }
-.tag-amber { background: var(--amber-light); color: var(--amber); }
-.tag-blue { background: var(--blue-light); color: var(--blue); }
-.tag-gray { background: var(--border); color: var(--ink2); }
-.ex-arrow { color: var(--ink3); font-size: 18px; transition: transform 0.25s; flex-shrink: 0; }
-.ex-card.open .ex-arrow { transform: rotate(180deg); }
-.ex-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); animation: fadeUp 0.2s ease; }
-.ex-card.open .ex-body { display: block; }
-.ex-section { margin-top: 12px; }
-.ex-section-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
-.ex-text { font-size: 13px; color: var(--ink); line-height: 1.7; }
-.ex-tip { background: var(--green-xlight); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; padding: 9px 12px; font-size: 12px; color: var(--green); font-weight: 500; margin-top: 10px; line-height: 1.5; }
-.ex-warn { background: var(--red-light); border-left: 3px solid var(--red); border-radius: 0 8px 8px 0; padding: 9px 12px; font-size: 12px; color: var(--red); font-weight: 500; margin-top: 8px; line-height: 1.5; }
+.ex-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow-sm);transition:border-color .2s}
+.ex-card.open{border-color:var(--green)}
+.ex-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none}
+.ex-num{width:32px;height:32px;border-radius:50%;background:var(--green-light);color:var(--green);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ex-info{flex:1}
+.ex-name{font-weight:600;font-size:15px;margin-bottom:3px}
+.ex-meta{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px}
+.tag-green{background:var(--green-light);color:var(--green)}
+.tag-amber{background:var(--amber-light);color:var(--amber)}
+.tag-blue{background:var(--blue-light);color:var(--blue)}
+.tag-gray{background:var(--border);color:var(--ink2)}
+.tag-red{background:var(--red-light);color:var(--red)}
+.ex-arrow{color:var(--ink3);font-size:18px;transition:transform .25s;flex-shrink:0}
+.ex-card.open .ex-arrow{transform:rotate(180deg)}
+.ex-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border);animation:fadeUp .2s ease}
+.ex-card.open .ex-body{display:block}
+.ex-section{margin-top:12px}
+.ex-section-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.ex-text{font-size:13px;color:var(--ink);line-height:1.7}
+.ex-tip{background:var(--green-xlight);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:9px 12px;font-size:12px;color:var(--green);font-weight:500;margin-top:10px;line-height:1.5}
+.ex-warn{background:var(--red-light);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:9px 12px;font-size:12px;color:var(--red);font-weight:500;margin-top:8px;line-height:1.5}
+.ex-feel{background:var(--blue-light);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:9px 12px;font-size:12px;color:var(--blue);font-weight:500;margin-top:8px;line-height:1.5}
+
+/* DAY HEADER CARD */
+.day-hdr{border-radius:var(--r);padding:14px 16px;margin-bottom:12px}
+.day-hdr.core{background:var(--green-xlight);border:1px solid var(--green-mid)}
+.day-hdr.mobility{background:var(--blue-light);border:1px solid #A8C0E8}
+.day-hdr.finish{background:var(--gold-light);border:1px solid var(--gold)}
+.day-hdr-title{font-weight:700;font-size:15px;margin-bottom:2px}
+.day-hdr.core .day-hdr-title{color:var(--green)}
+.day-hdr.mobility .day-hdr-title{color:var(--blue)}
+.day-hdr.finish .day-hdr-title{color:var(--gold)}
+.day-hdr-sub{font-size:12px}
+.day-hdr.core .day-hdr-sub{color:var(--green)}
+.day-hdr.mobility .day-hdr-sub{color:var(--blue)}
+.day-hdr.finish .day-hdr-sub{color:var(--gold)}
 
 /* SUPPLEMENTS */
-.supp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-.supp-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; box-shadow: var(--shadow-sm); }
-.supp-icon-big { font-size: 26px; margin-bottom: 7px; }
-.supp-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
-.supp-dose { font-size: 13px; color: var(--green); font-weight: 600; margin-bottom: 3px; }
-.supp-when { font-size: 11px; color: var(--ink3); margin-bottom: 6px; }
-.supp-why { font-size: 12px; color: var(--ink2); line-height: 1.5; }
-.ev-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 8px; margin-bottom: 6px; }
-.ev-high { background: var(--green-light); color: var(--green); }
-.ev-good { background: var(--gold-light); color: var(--gold); }
+.supp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.supp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;box-shadow:var(--shadow-sm)}
+.supp-icon-big{font-size:26px;margin-bottom:7px}
+.supp-name{font-weight:700;font-size:14px;margin-bottom:2px}
+.supp-dose{font-size:13px;color:var(--green);font-weight:600;margin-bottom:3px}
+.supp-when{font-size:11px;color:var(--ink3);margin-bottom:6px}
+.supp-why{font-size:12px;color:var(--ink2);line-height:1.5}
+.ev-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px;margin-bottom:6px}
+.ev-high{background:var(--green-light);color:var(--green)}
+.ev-good{background:var(--gold-light);color:var(--gold)}
 
 /* TIMELINE */
-.timeline { padding-left: 22px; position: relative; }
-.timeline::before { content: ''; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); border-radius: 2px; }
-.tl-item { position: relative; margin-bottom: 18px; }
-.tl-item::before { content: ''; position: absolute; left: -18px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--green); border: 2px solid var(--bg); box-shadow: 0 0 0 2px var(--green); }
-.tl-time { font-size: 10px; font-weight: 700; color: var(--green); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 2px; }
-.tl-action { font-size: 14px; font-weight: 600; }
-.tl-detail { font-size: 12px; color: var(--ink2); line-height: 1.5; margin-top: 2px; }
+.timeline{padding-left:22px;position:relative}
+.timeline::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--border);border-radius:2px}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item::before{content:'';position:absolute;left:-18px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--green)}
+.tl-time{font-size:10px;font-weight:700;color:var(--green);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.tl-action{font-size:14px;font-weight:600}
+.tl-detail{font-size:12px;color:var(--ink2);line-height:1.5;margin-top:2px}
 
 /* PHASE COMING */
-.phase-coming { background: var(--surface2); border: 1.5px dashed var(--border); border-radius: var(--r); padding: 28px 20px; text-align: center; color: var(--ink3); }
-.phase-coming-icon { font-size: 36px; margin-bottom: 10px; }
-.phase-coming-title { font-weight: 700; font-size: 16px; color: var(--ink2); margin-bottom: 6px; }
-.phase-coming-sub { font-size: 13px; line-height: 1.7; }
+.phase-coming{background:var(--surface2);border:1.5px dashed var(--border);border-radius:var(--r);padding:28px 20px;text-align:center;color:var(--ink3)}
+.phase-coming-icon{font-size:36px;margin-bottom:10px}
+.phase-coming-title{font-weight:700;font-size:16px;color:var(--ink2);margin-bottom:6px}
+.phase-coming-sub{font-size:13px;line-height:1.7}
 
 /* MODAL */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
-.modal-overlay.visible { opacity: 1; pointer-events: all; }
-.modal-box { background: var(--surface); border-radius: 20px; padding: 28px 24px; max-width: 340px; width: 100%; text-align: center; transform: scale(0.9); transition: transform 0.25s; }
-.modal-overlay.visible .modal-box { transform: scale(1); }
-.modal-icon { font-size: 52px; margin-bottom: 12px; }
-.modal-title { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 8px; color: var(--ink); }
-.modal-text { font-size: 14px; color: var(--ink2); line-height: 1.6; margin-bottom: 20px; }
-.modal-btn { width: 100%; padding: 14px; background: var(--green); color: white; border: none; border-radius: 12px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; }
-.modal-btn:active { transform: scale(0.98); }
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.visible{opacity:1;pointer-events:all}
+.modal-box{background:var(--surface);border-radius:20px;padding:28px 24px;max-width:340px;width:100%;text-align:center;transform:scale(.9);transition:transform .25s}
+.modal-overlay.visible .modal-box{transform:scale(1)}
+.modal-icon{font-size:52px;margin-bottom:12px}
+.modal-title{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px;color:var(--ink)}
+.modal-text{font-size:14px;color:var(--ink2);line-height:1.6;margin-bottom:20px}
+.modal-btn{width:100%;padding:14px;background:var(--green);color:white;border:none;border-radius:12px;font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;cursor:pointer}
+.modal-btn:active{transform:scale(.98)}
 </style>
 </head>
 <body>
@@ -219,12 +230,9 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--in
 
   <div class="today-card">
     <div class="today-label">Ďalší tréning na rade</div>
-    <div class="today-name" id="todayName">Core A – Reaktivácia</div>
-    <div class="today-sub" id="todaySub">5 pohybov · 20 minút · po práci</div>
-    <div class="today-actions">
-      <button class="today-btn" onclick="goToTodayDay()">Otvoriť tréning →</button>
-      <button class="today-btn secondary" onclick="quickComplete()">✓ Hotovo</button>
-    </div>
+    <div class="today-name" id="todayName">Core + Nohy A</div>
+    <div class="today-sub" id="todaySub">6 pohybov · 25 minút · po práci</div>
+    <button class="today-btn" onclick="goToTodayDay()">Otvoriť tréning →</button>
   </div>
 
   <div class="progress-card">
@@ -242,13 +250,13 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--in
   </div>
 
   <div class="week-strip">
-    <div class="day-pill today-pill"><div class="dp-name">Po</div><div class="dp-icon">💪</div><div class="dp-type">Core A</div></div>
+    <div class="day-pill today-pill"><div class="dp-name">Po</div><div class="dp-icon">💪</div><div class="dp-type">Core+Nohy</div></div>
     <div class="day-pill training"><div class="dp-name">Ut</div><div class="dp-icon">🔄</div><div class="dp-type">Mobilita</div></div>
-    <div class="day-pill training"><div class="dp-name">St</div><div class="dp-icon">💪</div><div class="dp-type">Core B</div></div>
+    <div class="day-pill training"><div class="dp-name">St</div><div class="dp-icon">💪</div><div class="dp-type">Core+Nohy</div></div>
     <div class="day-pill training"><div class="dp-name">Št</div><div class="dp-icon">🔄</div><div class="dp-type">Mobilita</div></div>
-    <div class="day-pill training"><div class="dp-name">Pi</div><div class="dp-icon">💪</div><div class="dp-type">Core A+</div></div>
-    <div class="day-pill rest"><div class="dp-name">So</div><div class="dp-icon">🐕</div><div class="dp-type">Prechádzka</div></div>
-    <div class="day-pill rest"><div class="dp-name">Ne</div><div class="dp-icon">🐕</div><div class="dp-type">Prechádzka</div></div>
+    <div class="day-pill training"><div class="dp-name">Pi</div><div class="dp-icon">⭐</div><div class="dp-type">Komplet</div></div>
+    <div class="day-pill rest"><div class="dp-name">So</div><div class="dp-icon">🐕</div><div class="dp-type">Walk</div></div>
+    <div class="day-pill rest"><div class="dp-name">Ne</div><div class="dp-icon">🐕</div><div class="dp-type">Walk</div></div>
   </div>
 
   <div class="sec-label" style="margin-bottom:8px;">Suplementy dnes</div>
@@ -268,7 +276,6 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--in
 
 <!-- ══ TRÉNING ══ -->
 <div class="screen" id="screen-trening">
-
   <div class="phase-tabs">
     <div class="ptab active" id="ptab1" onclick="switchPhase(1,this)">Fáza 1</div>
     <div class="ptab locked" id="ptab2" onclick="tryPhase(2,this)">🔒 Fáza 2</div>
@@ -279,80 +286,326 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--in
   <div id="phase-content-1">
     <div class="info-box success" style="margin-bottom:12px;">
       <div class="info-icon">🎯</div>
-      <div><div class="info-title">Fáza 1 – Reaktivácia</div>
-      <div class="info-text">Žiadna záťaž – len kontrola a vedomý pohyb. Po dokončení tréningu klepni na tlačidlo dole. Po 20 tréningoch sa odomkne Fáza 2.</div></div>
+      <div><div class="info-title">Fáza 1 – Reaktivácia (4 týždne)</div>
+      <div class="info-text">Žiadna vonkajšia záťaž – len vlastná váha, kontrola a vedomý pohyb. Po každom tréningu klepni na zelené tlačidlo dole.</div></div>
     </div>
 
     <div class="day-tabs" id="dayTabs1">
-      <div class="dtab active" id="dtab-po" onclick="switchDay('po',this)">Po – Core A</div>
+      <div class="dtab active" id="dtab-po" onclick="switchDay('po',this)">Po – Core+Nohy A</div>
       <div class="dtab" id="dtab-ut" onclick="switchDay('ut',this)">Ut – Mobilita</div>
-      <div class="dtab" id="dtab-st" onclick="switchDay('st',this)">St – Core B</div>
+      <div class="dtab" id="dtab-st" onclick="switchDay('st',this)">St – Core+Nohy B</div>
       <div class="dtab" id="dtab-st2" onclick="switchDay('st2',this)">Št – Mobilita</div>
-      <div class="dtab" id="dtab-pi" onclick="switchDay('pi',this)">Pi – Core A+</div>
-      <div class="dtab rest">So 🐕</div>
-      <div class="dtab rest">Ne 🐕</div>
+      <div class="dtab" id="dtab-pi" onclick="switchDay('pi',this)">Pi – Kompletný</div>
+      <div class="dtab rest">So 🐕 Walk</div>
+      <div class="dtab rest">Ne 🐕 Walk</div>
     </div>
 
-    <!-- PONDELOK -->
+    <!-- ══ PONDELOK ══ -->
     <div id="day-po">
-      <div class="card" style="background:var(--green-xlight);border-color:var(--green-mid);margin-bottom:12px;">
-        <div style="font-weight:700;color:var(--green);margin-bottom:3px;">💪 Pondelok – Core A</div>
-        <div style="font-size:13px;color:var(--green);">Aktivácia hlbokých stabilizátorov · 5 pohybov · 20 min</div>
+      <div class="day-hdr core">
+        <div class="day-hdr-title">💪 Pondelok – Core + Nohy A</div>
+        <div class="day-hdr-sub">6 pohybov · ~25 minút · aktivácia a stabilizácia</div>
       </div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span><span class="tag tag-gray">3s každý smer</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na štyroch – ruky pod ramenami, kolená pod bokmi.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Nádych → prehni chrbát dolu (krava), zdvihni hlavu a kostrč. Výdych → zaokrúhli nahor (mačka), hlava dolu. Každý smer 3 sekundy.</div></div><div class="ex-tip">💡 Nie len rozcvička – mobilizácia disku. Rob vedome, cíť každý segment.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">McGill Curl-Up</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">10s výdrž</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte. Jedna noha vystretá, druhá pokrčená. Ruky POD driekovou lordózou – zachovaj zakrivenie po celý čas.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Zdvihni len hlavu a ramená – nie celý trup. Drž 8–10s. Pomaly dolu. Po sérii vymeň nohy.</div></div><div class="ex-tip">💡 Ruky pod driekon zachovávajú lordózu. Kľúčové pre ochranu L4-L5.</div><div class="ex-warn">⚠️ NIE klasický sed-ľah – ten tlačí priamo na poškodený disk.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Bird-Dog</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span><span class="tag tag-blue">8s výdrž</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na štyroch – neutrálna chrbtica, bruch mierne napnutý.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Súčasne vytiahni pravú ruku a ľavú nohu – obe rovnobežne so zemou. Drž 8s. Pomaly späť. Vymeň strany. Ak sa klátíš – zmenši rozsah.</div></div><div class="ex-tip">💡 Multifidy – kľúčové svaly pre stabilitu L-chrbtice – sa aktivujú presne pri tomto pohybe.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Gluteal Bridge</div><div class="ex-meta"><span class="tag tag-green">3 × 15</span><span class="tag tag-gray">2s hore</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte, kolená pokrčené, chodidlá na šírku bokov.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Vtlač chodidlá do zeme, zapni zadok, zdvihni boky. Priamka od ramien po kolená. Drž 2s hore. Pomaly dolu – nepoklaď medzi opakovaním.</div></div><div class="ex-section"><div class="ex-section-label">Progresia v týždni 3–4</div><div class="ex-text">Pridaj gumu nad kolená pre aktiváciu abduktorov.</div></div><div class="ex-tip">💡 Slabé gluteusy = preťažená drieková chrbtica. Jeden z najdôležitejších pohybov celého plánu.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Dead Bug</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte. Ruky kolmo nahor, kolená pokrčené 90° nahor.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Vtlač driek do podložky – MUSÍ zostať pritlačený. Súčasne spúšťaj pravú ruku za hlavu a ľavú nohu k zemi bez dotyku. Späť. Vymeň. Ak sa driek zdvíha – zmenši rozsah.</div></div><div class="ex-tip">💡 Trénuje anti-extenziu – udržanie neutrálnej chrbtice pri pohybe končatín.</div></div></div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span><span class="tag tag-gray">3s každý smer</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na štyroch – ruky priamo pod ramenami, kolená pod bokmi. Chrbtica v neutrálnej polohe.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Nádych → pomaly prehni chrbát dolu (krava) – zdvihni hlavu a kostrč. Výdych → zaokrúhli chrbát nahor (mačka) – hlava dolu, bruch vtiahnuť. Každý smer 3 sekundy. Pohyb musí ísť plynulo cez celú chrbticu.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: jemné natiahnutie striedavo v driekovej a hrudnej oblasti · mobilizáciu každého segmentu</div>
+          <div class="ex-warn">🔴 Zastav ak: cítiš ostrú bolesť v driekovej oblasti pri prehnutí dolu</div>
+          <div class="ex-tip">💡 Najčastejšia chyba: pohyb len v driekovej oblasti – hrudná chrbtica ostáva stuhnutá. Cieľ je vlnenie celej chrbtice.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Dead Bug</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span><span class="tag tag-blue">pomaly</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte. Ruky kolmo nahor, kolená pokrčené 90° nahor – ako prevrátený chrobák.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Vtlač driek do podložky – zostane tam celý čas. Súčasne pomaly spúšťaj pravú ruku za hlavu a ľavú nohu k zemi. Zastav 2–3 cm nad zemou. Späť. Vymeň strany. Ak sa driek zdvíha – zmenši rozsah.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: napätie hlboko v bruchu (transverzus abdominis) · driek pevne pri zemi</div>
+          <div class="ex-warn">🔴 Zastav ak: driek sa zdvíha od zeme – to znamená že core nestíha. Skráť rozsah pohybu.</div>
+          <div class="ex-tip">💡 Najčastejšia chyba: rýchle opakovania. Dead bug je pomalý pohyb – 3–4 sekundy dolu, 2 sekundy hore.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Bird-Dog</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span><span class="tag tag-blue">8s výdrž</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na štyroch – neutrálna chrbtica, bruch mierne napnutý, pohľad dolu.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Súčasne vytiahni pravú ruku a ľavú nohu – obe rovnobežne so zemou. Drž 8 sekúnd. Pomaly späť bez dotyku zeme. Vymeň strany. Boky musia zostať rovnobežne so zemou – nekláti sa.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: aktiváciu svalov pozdĺž chrbtice (multifidy) · miernu prácu v zadku zdvihnutej nohy</div>
+          <div class="ex-warn">🔴 Zastav ak: boky sa klátia do strán alebo pociťuješ ťah v driekovej oblasti</div>
+          <div class="ex-tip">💡 Najčastejšia chyba: zdvíhanie nohy príliš vysoko – stačí rovnobežne so zemou, nie vyššie.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Gluteal Bridge</div><div class="ex-meta"><span class="tag tag-green">3 × 15</span><span class="tag tag-gray">2s hore</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte, kolená pokrčené, chodidlá na šírku bokov, ruky pozdĺž tela.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Vtlač chodidlá do zeme, zapni zadok a zdvihni boky. Telo tvorí priamku od ramien po kolená. Drž 2 sekundy hore – aktívne stláčaj zadok. Pomaly dolu – nepoklaď úplne medzi opakovaním.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Progresia v týždni 3–4</div><div class="ex-text">Pridaj gumu nad kolená a aktívne tlač kolená von – silnejšia aktivácia gluteus medius.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: intenzívnu prácu v zadku · hamstringy sekundárne · NIE v driekovej oblasti</div>
+          <div class="ex-warn">🔴 Zastav ak: cítiš kŕče v hamstringoch – chodidlá sú príliš ďaleko od tela. Pritiahni ich bližšie.</div>
+          <div class="ex-tip">💡 Najčastejšia chyba: boky sa vykláňajú do strany. Obe strany musia ísť rovnomerne hore.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Bodyweight Squat</div><div class="ex-meta"><span class="tag tag-green">3 × 12</span><span class="tag tag-gray">pomalý</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Postoj na šírku ramien alebo mierne širší. Špičky mierne von (15–30°). Ruky pred sebou alebo na bokoch.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Sadni dolu pomaly – 3 sekundy dolu, 1 sekunda hore. Kolená idú v smere špičiek – nekláti sa dovnútra. Chrbtica zostáva vzpriamená, hrudník hore. Hĺbka: aspoň do rovnobežky stehien so zemou, ak to dovolí mobilita.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: prácu v štvorhlavom svale stehna · gluteusy · nie tlak v kolenách ani bolesť</div>
+          <div class="ex-warn">🔴 Zastav ak: kolená padajú dovnútra · bolesť v kolenách · kladieš sa dopredu – skráť hĺbku</div>
+          <div class="ex-tip">💡 Najčastejšia chyba: päty sa zdvíhajú od zeme – skrátené lýtka alebo achillovka. Riešenie: malá podložka pod pätami alebo plytší drep.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">6</div><div class="ex-info"><div class="ex-name">McGill Curl-Up</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">10s výdrž</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte. Jedna noha vystretá, druhá pokrčená. Ruky PODLOŽENÉ pod driekovou lordózou – zachovaj prirodzené zakrivenie po celý čas.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Zdvihni len hlavu, krk a horné ramená – nie celý trup. Brada mierne pritlačená k hrudníku. Drž 8–10 sekúnd. Pomaly dolu. Po sérii vymeň nohy.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: napätie v bruchu (rectus abdominis) · krk uvoľnený · driek stále v kontakte s rukami</div>
+          <div class="ex-warn">🔴 NIE klasický sed-ľah – ten pri L4-L5 hernii tlačí priamo na disk.</div>
+          <div class="ex-tip">💡 Najčastejšia chyba: ťahanie za hlavu krkom. Pohyb robí bruch, nie krk.</div>
+        </div>
+      </div>
+
       <div class="complete-day-wrap"><button class="complete-day-btn" id="complete-po" onclick="completeDay('po')">✓ Označiť tréning ako hotový</button></div>
     </div>
 
-    <!-- UTOROK -->
+    <!-- ══ UTOROK ══ -->
     <div id="day-ut" style="display:none;">
-      <div class="card" style="background:var(--blue-light);border-color:#A8C0E8;margin-bottom:12px;"><div style="font-weight:700;color:var(--blue);margin-bottom:3px;">🔄 Utorok – Mobilita & Uvoľnenie</div><div style="font-size:13px;color:var(--blue);">Aktívne zotavenie · 5 pohybov · 20 min</div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Child's Pose</div><div class="ex-meta"><span class="tag tag-green">3 × 45s</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Na kolenách, sadni na päty, ruky čo najďalej dopredu, čelo na zemi. Uvoľni sa, dýchaj do brucha. Varianty: ruky rovno / vľavo / vpravo.</div><div class="ex-tip">💡 Pri nádechu cítiš natiahnutie v driekovej oblasti – difúzna hydratácia disku.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Knee-to-Chest Stretch</div><div class="ex-meta"><span class="tag tag-green">3 × 30s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Na chrbte. Pritiahnuť jedno koleno k hrudníku, druhá noha vystretá. Drž 30s. Vymeň. Potom obidve naraz s jemným krúžením.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Piriformis Stretch – Figúra 4</div><div class="ex-meta"><span class="tag tag-green">3 × 45s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Na chrbte, kolená pokrčené. Pravý členok na ľavé stehno. Rukami chyť za ľavé stehno a pritiahnuť k hrudníku. Cítiš natiahnutie v pravom zadku.</div><div class="ex-tip">💡 Napätý piriformis môže dráždiť sedací nerv a simulovať príznaky platničky.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Hip Flexor Stretch</div><div class="ex-meta"><span class="tag tag-green">3 × 30s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Výpadový postoj – koleno na zemi, druhá noha vpredu 90°. Boky tlač dopredu. Zapni zadok zadnej nohy.</div><div class="ex-tip">💡 Skrátený iliopsoas priamo ťahá driekovú chrbticu dopredu.</div></div></div>
+      <div class="day-hdr mobility">
+        <div class="day-hdr-title">🔄 Utorok – Mobilita celého tela</div>
+        <div class="day-hdr-sub">8 pohybov · ~25 minút · uvoľnenie a natiahnutie</div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok – mobilizácia pred strečingom.</div></div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Thread the Needle</div><div class="ex-meta"><span class="tag tag-green">3 × 30s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na štyroch.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Pravú ruku presuň pod telom doľava – "navliekni ihlu". Pravé rameno a líce položíš na zem. Ľavá ruka ostáva pred tebou. Drž 30 sekúnd. Vymeň strany.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: natiahnutie v hrudnej chrbtici a vonkajšom ramene</div>
+          <div class="ex-tip">💡 Výborný pohyb pre hrudnú rotáciu – pri sedavej práci je hrudná chrbtica stuhnutá a kompenzuje to drieková.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Child's Pose</div><div class="ex-meta"><span class="tag tag-green">3 × 45s</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-text">Na kolenách, sadni na päty, ruky čo najďalej dopredu, čelo na zemi. Uvoľni sa, dýchaj do brucha. Varianty: ruky rovno / vľavo / vpravo pre rôzne oblasti.</div>
+          <div class="ex-feel">🟦 Cítiť máš: natiahnutie pozdĺž celej chrbtice · pri nádychu mierny tlak v driekovej oblasti</div>
+          <div class="ex-tip">💡 Ten tlak pri nádychu je difúzna hydratácia disku – pohyb doslova vpumpúva živiny do platničky.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Piriformis Stretch – Figúra 4</div><div class="ex-meta"><span class="tag tag-green">3 × 45s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-text">Na chrbte, kolená pokrčené. Pravý členok polož na ľavé stehno (figúra 4). Rukami chyť za ľavé stehno a pritiahnuť k hrudníku.</div>
+          <div class="ex-feel">🟦 Cítiť máš: hlboké natiahnutie v zadku (nie na povrchu – hlboko)</div>
+          <div class="ex-tip">💡 Napätý piriformis môže dráždiť sedací nerv a simulovať príznaky platničky. Tento pohyb je preto dôležitejší ako vyzerá.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Hip Flexor Stretch</div><div class="ex-meta"><span class="tag tag-green">3 × 30s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-text">Výpadový postoj – koleno zadnej nohy na zemi, predná noha 90°. Boky tlač dopredu a nadol. Zapni zadok zadnej nohy. Môžeš pridať mierny úklon trupu dozadu.</div>
+          <div class="ex-feel">🟦 Cítiť máš: natiahnutie vpredu na stehne zadnej nohy · nie bolesť v kolene</div>
+          <div class="ex-tip">💡 Sedavá práca skracuje iliopsoas každý deň. Tento sval sa upína na L1–L4 a jeho napätie priamo ťahá driekovú chrbticu dopredu.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">6</div><div class="ex-info"><div class="ex-name">Doorway Chest Stretch</div><div class="ex-meta"><span class="tag tag-green">3 × 30s</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Postav sa do dverného rámu. Ruky oprieš o rám v úrovni ramien, lakte pokrčené 90°.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Urob krok dopredu – hrudník sa pretlačí cez rám. Cítiš natiahnutie v hrudníku a predných ramenách. Brada mierne pritlačená, nestrkaj hlavu dopredu.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: natiahnutie v hrudníku a predných deltách · otvorenie hrudnej kosti</div>
+          <div class="ex-tip">💡 Sedenie zaokrúhľuje ramená dopredu – prsné svaly sa skracujú a ťahajú hornú chrbticu do ohnutej polohy. Tento pohyb to koriguje.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">7</div><div class="ex-info"><div class="ex-name">Neck Stretch – krk</div><div class="ex-meta"><span class="tag tag-green">3 × 20s</span><span class="tag tag-gray">4 smery</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-text">Sede alebo v stoji. Pomaly nakloň hlavu doprava – ľavé ucho k pravému ramenu. Drž 20s. Potom doľava, dopredu (brada k hrudníku), dozadu (pohľad nahor). Pohyb vedie len gravitácia – žiadne ťahanie rukami.</div>
+          <div class="ex-feel">🟦 Cítiť máš: jemné natiahnutie na bočnej strane krku · nie bolesť ani mravenčenie</div>
+          <div class="ex-warn">🔴 Zastav ak: cítiš mravenčenie do ramena alebo ruky – to môže byť krčná chrbtica. Pohyb zmenši.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">8</div><div class="ex-info"><div class="ex-name">Calf Stretch – lýtka</div><div class="ex-meta"><span class="tag tag-green">3 × 30s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-text">Stoj čelom k stene. Predná noha pokrčená, zadná vystretá – päta na zemi. Boky tlač smerom k stene. Pre hlbší strečing (šľacha Achilles): zadnú nohu mierne pokrč v kolene.</div>
+          <div class="ex-feel">🟦 Cítiť máš: natiahnutie v lýtku zadnej nohy · pri pokrčení kolena hlbší strečing nižšie pri päte</div>
+          <div class="ex-tip">💡 Skrátené lýtka spôsobujú že päty sa zdvíhajú pri drepy – a to kompenzuje drieková chrbtica. Priama súvislosť.</div>
+        </div>
+      </div>
+
       <div class="complete-day-wrap"><button class="complete-day-btn" id="complete-ut" onclick="completeDay('ut')">✓ Označiť tréning ako hotový</button></div>
     </div>
 
-    <!-- STREDA -->
+    <!-- ══ STREDA ══ -->
     <div id="day-st" style="display:none;">
-      <div class="card" style="background:var(--green-xlight);border-color:var(--green-mid);margin-bottom:12px;"><div style="font-weight:700;color:var(--green);margin-bottom:3px;">💪 Streda – Core B</div><div style="font-size:13px;color:var(--green);">Laterálna stabilita a gluteusy · 5 pohybov · 20 min</div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Side-Lying Clamshell</div><div class="ex-meta"><span class="tag tag-green">3 × 15</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na boku, kolená pokrčené 45°, nohy na sebe.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Drž chodidlá pri sebe – zdvihni vrchné koleno nahor. Pomaly dolu. Cíť gluteus medius. Progresia: guma nad kolenami od týždňa 2.</div></div><div class="ex-tip">💡 Slabý gluteus medius = nerovnomerné zaťaženie L-chrbtice pri každom kroku.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Side Plank na kolene</div><div class="ex-meta"><span class="tag tag-green">3 × 20–30s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Na predlaktí a spodnom kolene. Telo tvorí šikmú líniu. Zdvihni boky – drž pevne. Progresia: keď zvládneš 45s, vystrieš spodnú nohu.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Gluteal Bridge – jedna noha</div><div class="ex-meta"><span class="tag tag-green">3 × 10</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaká poloha ako základný bridge, jedna noha zdvihnutá. Zdvíhaj pomaly. Ak boky padajú – vráť sa ku klasickému bridge.</div><div class="ex-tip">💡 Odhalí silový rozdiel medzi stranami.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Plank na kolenách</div><div class="ex-meta"><span class="tag tag-green">3 × 20–30s</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Na predlaktiach a kolenách. Priamka od hlavy po kolená. Zapni bruch a zadok. Progresia: keď zvládneš 45s, prejdi na plný plank.</div><div class="ex-tip">💡 Aktívne úsilie, nie pasívne visenie. Každá sekunda musí byť vedomá.</div></div></div>
+      <div class="day-hdr core">
+        <div class="day-hdr-title">💪 Streda – Core + Nohy B</div>
+        <div class="day-hdr-sub">6 pohybov · ~25 minút · laterálna stabilita a nohy</div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Side Plank na kolene</div><div class="ex-meta"><span class="tag tag-green">3 × 25s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na boku, opreš sa o predlaktie a spodné koleno. Vrchná noha vystretá, chodidlo na zemi.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Zdvihni boky – telo tvorí šikmú líniu od kolena po hlavu. Drž pevne 25 sekúnd. Boky nesmú klesať dolu ani vyčnievať nahor. Progresia: keď zvládneš 45s, vystrieš spodnú nohu.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: intenzívnu prácu na boku trupu (quadratus lumborum) · spodné rameno pracuje</div>
+          <div class="ex-tip">💡 Quadratus lumborum je jeden z hlavných laterálnych stabilizátorov chrbtice. Jeho slabosť = skoliotické preťaženie L4-L5.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Side-Lying Clamshell</div><div class="ex-meta"><span class="tag tag-green">3 × 15</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na boku, kolená pokrčené 45°, nohy na sebe, hlava na predlaktí.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Drž chodidlá pri sebe – zdvihni vrchné koleno nahor ako lastúra. Pomaly dolu. Necvič pohybom – cíť gluteus medius. Progresia od týždňa 2: guma nad kolenami.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: prácu na vonkajšej strane zadku (nie v stehne) · ak cítiš stehno – sval preberá kompenzačnú funkciu</div>
+          <div class="ex-tip">💡 Slabý gluteus medius = každý krok zaťažuje L-chrbticu nerovnomerne. Jeden z najpodceňovanejších pohybov.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Wall Sit</div><div class="ex-meta"><span class="tag tag-green">3 × 30s</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Chrbát opretý o stenu, chodidlá ~60cm od steny. Sadni dolu kým kolená nie sú v uhle 90°.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Drž polohu 30 sekúnd. Chrbát celý v kontakte so stenou – neodlepuje sa drieková oblasť. Kolená v smere špičiek. Progresia: keď zvládneš 60s bez problémov, predlž na 45s a pridaj sériu.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: intenzívne pálenie v štvorhlavom svale stehna · gluteusy pracujú · chrbát relaxovaný o stenu</div>
+          <div class="ex-warn">🔴 Zastav ak: bolesť v kolenách. Zmenši uhol (nesadaj tak hlboko).</div>
+          <div class="ex-tip">💡 Wall sit je izometrická záťaž – posilňuje nohy bez pohybu chrbtice. Ideálny prvý pohyb pre nohy po hernii.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Výpad na mieste</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span><span class="tag tag-blue">pomalý</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Postoj, ruky na bokoch alebo pred sebou pre rovnováhu.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Krok vpred pravou nohou. Pomaly sadni dolu – predné koleno nad špičkou, zadné koleno smeruje k zemi (2–3 cm nad zemou). Chrbtica vzpriamená. Späť do stoja. Vymeň nohu. Tempo: 3 sekundy dolu, 2 sekundy hore.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: prácu v prednom stehne a zadku prednej nohy · rovnováhu a kontrolu</div>
+          <div class="ex-warn">🔴 Zastav ak: predné koleno sa tlačí dovnútra · bolesť v kolene · nestabilita – drž sa stoličky</div>
+          <div class="ex-tip">💡 Výpad viac ako drep pracuje s každou nohou samostatne – odhalí a koriguje asymetrie ktoré zaťažujú chrbticu.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">6</div><div class="ex-info"><div class="ex-name">Gluteal Bridge – jedna noha</div><div class="ex-meta"><span class="tag tag-green">3 × 10</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-text">Rovnaká poloha ako základný bridge – jedna noha zdvihnutá (vystretá alebo pokrčená nahor). Zdvíhaj pomaly. Ak boky padajú do strany – vráť sa ku klasickému bridge.</div>
+          <div class="ex-feel">🟦 Cítiť máš: intenzívnejšiu prácu v gluteuse oproti klasickému bridge · boky ostávajú rovnobežne</div>
+          <div class="ex-tip">💡 Ak jedna strana padá viac – to je strana ktorú potrebuješ viac posilniť. Cenná informácia.</div>
+        </div>
+      </div>
+
       <div class="complete-day-wrap"><button class="complete-day-btn" id="complete-st" onclick="completeDay('st')">✓ Označiť tréning ako hotový</button></div>
     </div>
 
-    <!-- ŠTVRTOK -->
+    <!-- ══ ŠTVRTOK ══ -->
     <div id="day-st2" style="display:none;">
-      <div class="card" style="background:var(--blue-light);border-color:#A8C0E8;margin-bottom:12px;"><div style="font-weight:700;color:var(--blue);margin-bottom:3px;">🔄 Štvrtok – Mobilita + Dych</div><div style="font-size:13px;color:var(--blue);">Rovnaké ako utorok + bránicové dýchanie · 20 min</div></div>
-      <div class="info-box info"><div class="info-icon">📋</div><div><div class="info-title">Program štvrtka</div><div class="info-text">Rovnaké pohyby ako Utorok: Cat-Cow, Child's Pose, Knee-to-Chest, Figúra 4, Hip Flexor. Navyše bránicové dýchanie na záver.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">+</div><div class="ex-info"><div class="ex-name">Bránicové dýchanie</div><div class="ex-meta"><span class="tag tag-blue">Navyše</span><span class="tag tag-green">5 minút</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte, kolená pokrčené. Jedna ruka na bruchu, druhá na hrudníku.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Nádych nosom – brucho hore, hrudník pokojný. Výdych ústami – brucho dolu. Tempo: nádych 4s · zadržanie 2s · výdych 6s.</div></div><div class="ex-tip">💡 Bránica je súčasť core systému. Jej správna funkcia znižuje intradiskálny tlak na L4-L5.</div></div></div>
+      <div class="day-hdr mobility">
+        <div class="day-hdr-title">🔄 Štvrtok – Mobilita + Dych</div>
+        <div class="day-hdr-sub">Rovnaké ako utorok + bránicové dýchanie · ~25 minút</div>
+      </div>
+
+      <div class="info-box info"><div class="info-icon">📋</div><div><div class="info-title">Program štvrtka</div><div class="info-text">Všetky pohyby z utorka v rovnakom poradí: Cat-Cow → Thread the Needle → Child's Pose → Figúra 4 → Hip Flexor → Doorway Stretch → Krk → Lýtka. Na záver pridaj bránicové dýchanie.</div></div></div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">+</div><div class="ex-info"><div class="ex-name">Bránicové dýchanie</div><div class="ex-meta"><span class="tag tag-blue">Navyše</span><span class="tag tag-green">5 minút</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body">
+          <div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte, kolená pokrčené. Jedna ruka na bruchu, druhá na hrudníku.</div></div>
+          <div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Nádych nosom – brucho hore, hrudník relatívne pokojný. Výdych ústami – brucho dolu. Tempo: nádych 4s · zadržanie 2s · výdych 6s. Opakuj 5 minút.</div></div>
+          <div class="ex-feel">🟦 Cítiť máš: brucho sa dvíha pri nádychu · hrudník je sekundárny · po 2–3 minútach rastúci pocit pokoja</div>
+          <div class="ex-tip">💡 Bránica je súčasť hlbokého core systému. Jej správna funkcia priamo znižuje intradiskálny tlak na L4-L5.</div>
+        </div>
+      </div>
+
       <div class="complete-day-wrap"><button class="complete-day-btn" id="complete-st2" onclick="completeDay('st2')">✓ Označiť tréning ako hotový</button></div>
     </div>
 
-    <!-- PIATOK -->
+    <!-- ══ PIATOK ══ -->
     <div id="day-pi" style="display:none;">
-      <div class="card" style="background:var(--green-xlight);border-color:var(--green-mid);margin-bottom:12px;"><div style="font-weight:700;color:var(--green);margin-bottom:3px;">💪 Piatok – Core A+</div><div style="font-size:13px;color:var(--green);">Najlepšia kombinácia týždňa · 25 min</div></div>
-      <div class="info-box success"><div class="info-icon">⭐</div><div><div class="info-title">Odporúčaná piatkova zostava</div><div class="info-text">Cat-Cow 2×10 → Dead Bug 3×8 → Bird-Dog 3×8 → Gluteal Bridge 3×15 → Side Plank 3×20s → Child's Pose 2×45s (cooldown). Ak ti ide lepšie ako v pondelok – si na správnej ceste.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Dead Bug</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Bird-Dog</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Gluteal Bridge</div><div class="ex-meta"><span class="tag tag-green">3 × 15</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
-      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Side Plank na kolene</div><div class="ex-meta"><span class="tag tag-green">3 × 20s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako streda.</div></div></div>
+      <div class="day-hdr finish">
+        <div class="day-hdr-title">⭐ Piatok – Kompletný tréning</div>
+        <div class="day-hdr-sub">Najlepší pohyb z každej kategórie · ~30 minút · záver týždňa</div>
+      </div>
+
+      <div class="info-box success"><div class="info-icon">⭐</div><div><div class="info-title">Piatok je zrkadlo týždňa</div><div class="info-text">Kombinuješ core, nohy aj mobilitu. Ak ti niektorý pohyb ide výrazne lepšie ako v pondelok – si na správnej ceste. Toto je tvoj najdôležitejší tréning v týždni.</div></div></div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok. Tempo pomalé – cíť každý segment chrbtice.</div></div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Dead Bug</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok. Driek musí zostať pritlačený k zemi počas celého pohybu.</div></div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Bird-Dog</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span><span class="tag tag-blue">8s výdrž</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok. Boky rovnobežne so zemou počas celého pohybu.</div></div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Gluteal Bridge</div><div class="ex-meta"><span class="tag tag-green">3 × 15</span><span class="tag tag-gray">2s hore</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok. Od týždňa 2 s gumou nad kolenami.</div></div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Bodyweight Squat</div><div class="ex-meta"><span class="tag tag-green">3 × 12</span><span class="tag tag-gray">pomalý</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok. 3 sekundy dolu, 1 sekunda hore. Kolená v smere špičiek.</div></div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">6</div><div class="ex-info"><div class="ex-name">Wall Sit</div><div class="ex-meta"><span class="tag tag-green">3 × 30s</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Rovnaký postup ako streda. Celý chrbát v kontakte so stenou.</div></div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">7</div><div class="ex-info"><div class="ex-name">Side Plank na kolene</div><div class="ex-meta"><span class="tag tag-green">3 × 25s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Rovnaký postup ako streda. Boky nesmú klesať.</div></div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">8</div><div class="ex-info"><div class="ex-name">Hip Flexor Stretch</div><div class="ex-meta"><span class="tag tag-green">2 × 30s</span><span class="tag tag-amber">Cooldown</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Výpadový postoj, každá strana. Pomalý strečing, dýchaj do natiahnutia. Záver celého týždňa.</div></div>
+      </div>
+
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-header"><div class="ex-num">9</div><div class="ex-info"><div class="ex-name">Child's Pose</div><div class="ex-meta"><span class="tag tag-green">2 × 45s</span><span class="tag tag-amber">Cooldown</span></div></div><div class="ex-arrow">▾</div></div>
+        <div class="ex-body"><div class="ex-text">Záverečné uvoľnenie. Uvoľni sa úplne, dýchaj hlboko. Si na konci týždňa – zaslúžiš si to.</div></div>
+      </div>
+
       <div class="complete-day-wrap"><button class="complete-day-btn" id="complete-pi" onclick="completeDay('pi')">✓ Označiť tréning ako hotový</button></div>
     </div>
   </div>
 
-  <div id="phase-content-2" style="display:none;"><div class="phase-coming"><div class="phase-coming-icon">🔒</div><div class="phase-coming-title">Fáza 2 – Posilnenie (Týždne 5–8)</div><div class="phase-coming-sub">Odomkne sa po 20 tréningoch Fázy 1.<br><br>Čo ťa čaká: bodyweight squat, push-up, inverted row na stoličkách, romanian deadlift s gumou, pallof press. Každý pohyb bude mať progression varianty od ľahšieho po ťažší.</div></div></div>
-  <div id="phase-content-3" style="display:none;"><div class="phase-coming"><div class="phase-coming-icon">🔒</div><div class="phase-coming-title">Fáza 3 – Kalistenika (Týždne 9–12)</div><div class="phase-coming-sub">Odomkne sa po Fáze 2.<br><br>Plný kalistenikový program: zhyby, dipy, pike push-up, single-leg RDL. Core pohyby z Fázy 1 zostávajú ako ranná rutina každý deň.</div></div></div>
-  <div id="phase-content-4" style="display:none;"><div class="phase-coming"><div class="phase-coming-icon">🔒</div><div class="phase-coming-title">Fáza 4 – Plný výkon (Týždeň 13+)</div><div class="phase-coming-sub">Odomkne sa po Fáze 3.<br><br>Štandardný A/B/C kalistenikový program s rehab core zapečeným do rozcvičky natrvalo.</div></div></div>
+  <div id="phase-content-2" style="display:none;"><div class="phase-coming"><div class="phase-coming-icon">🔒</div><div class="phase-coming-title">Fáza 2 – Posilnenie (Týždne 5–8)</div><div class="phase-coming-sub">Odomkne sa po 20 tréningoch Fázy 1.<br><br>Pridávame: push-up, inverted row, goblet squat s gumou, romanian deadlift, pallof press. Každý pohyb bude mať progression varianty od ľahšieho po ťažší.</div></div></div>
+  <div id="phase-content-3" style="display:none;"><div class="phase-coming"><div class="phase-coming-icon">🔒</div><div class="phase-coming-title">Fáza 3 – Kalistenika (Týždne 9–12)</div><div class="phase-coming-sub">Odomkne sa po Fáze 2.<br><br>Zhyby, dipy, pike push-up, bulgarian split squat, nordic curl. Core z Fázy 1 ostáva ako ranná rutina navždy.</div></div></div>
+  <div id="phase-content-4" style="display:none;"><div class="phase-coming"><div class="phase-coming-icon">🔒</div><div class="phase-coming-title">Fáza 4 – Plný výkon (Týždeň 13+)</div><div class="phase-coming-sub">Odomkne sa po Fáze 3.<br><br>Plný A/B/C kalistenikový program s rehab core zapečeným do každej rozcvičky natrvalo.</div></div></div>
 </div>
 
 <!-- ══ SUPLEMENTY ══ -->
@@ -362,15 +615,15 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--in
   <div class="sec-sub">Zoradené podľa sily dôkazov</div>
   <div style="margin-bottom:8px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);">● Silná evidencia</div>
   <div class="supp-grid">
-    <div class="supp-card"><div class="supp-icon-big">🦴</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Hydrolyzovaný kolagén</div><div class="supp-dose">10g denne</div><div class="supp-when">⏰ 30–60 min pred tréningom + vit. C</div><div class="supp-why">Platničky sú z veľkej časti kolagén. Kľúč je načasovanie.</div></div>
-    <div class="supp-card"><div class="supp-icon-big">☀️</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Vitamín D3</div><div class="supp-dose">2000–4000 IU</div><div class="supp-when">⏰ Ráno s jedlom (tučným)</div><div class="supp-why">Väčšina Slovákov je deficitná. Priamo súvisí so zdravím chrbtice.</div></div>
+    <div class="supp-card"><div class="supp-icon-big">🦴</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Hydrolyzovaný kolagén</div><div class="supp-dose">10g denne</div><div class="supp-when">⏰ 30–60 min pred tréningom + vit. C</div><div class="supp-why">Platničky sú z veľkej časti kolagén. Kľúč je načasovanie – musí byť v krvi pri záťaži tkaniva.</div></div>
+    <div class="supp-card"><div class="supp-icon-big">☀️</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Vitamín D3</div><div class="supp-dose">2000–4000 IU</div><div class="supp-when">⏰ Ráno s jedlom (tučným)</div><div class="supp-why">Väčšina Slovákov je deficitná. Priamo súvisí so zdravím chrbtice a svalovou funkciou.</div></div>
     <div class="supp-card"><div class="supp-icon-big">🌙</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Magnézium glycinát</div><div class="supp-dose">300–400mg</div><div class="supp-when">⏰ Pred spaním</div><div class="supp-why">Relaxácia svalových spazmov, kvalita spánku. Glycinát – nie oxid!</div></div>
-    <div class="supp-card"><div class="supp-icon-big">🍊</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Vitamín C</div><div class="supp-dose">500mg</div><div class="supp-when">⏰ Spolu s kolagénom</div><div class="supp-why">Nevyhnutný kofaktor pre syntézu kolagénu.</div></div>
+    <div class="supp-card"><div class="supp-icon-big">🍊</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Vitamín C</div><div class="supp-dose">500mg</div><div class="supp-when">⏰ Spolu s kolagénom</div><div class="supp-why">Nevyhnutný kofaktor pre syntézu kolagénu. Bez vitamínu C kolagén nefunguje.</div></div>
   </div>
   <div style="margin:4px 0 8px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);">● Dobrá evidencia</div>
   <div class="supp-grid">
-    <div class="supp-card"><div class="supp-icon-big">🐟</div><div class="ev-badge ev-good">Dobrá evidencia</div><div class="supp-name">Omega-3 EPA+DHA</div><div class="supp-dose">2–3g denne</div><div class="supp-when">⏰ S jedlom</div><div class="supp-why">Protizápalový efekt, znižuje neuropatickú bolesť.</div></div>
-    <div class="supp-card"><div class="supp-icon-big">🌿</div><div class="ev-badge ev-good">Dobrá evidencia</div><div class="supp-name">Kurkumín + piperíne</div><div class="supp-dose">500–1000mg</div><div class="supp-when">⏰ S jedlom (tučným)</div><div class="supp-why">Silný protizápalový efekt. MUSÍ byť s piperínom.</div></div>
+    <div class="supp-card"><div class="supp-icon-big">🐟</div><div class="ev-badge ev-good">Dobrá evidencia</div><div class="supp-name">Omega-3 EPA+DHA</div><div class="supp-dose">2–3g denne</div><div class="supp-when">⏰ S jedlom</div><div class="supp-why">Protizápalový efekt, znižuje neuropatickú bolesť. Aspoň 1g EPA+DHA na dávku.</div></div>
+    <div class="supp-card"><div class="supp-icon-big">🌿</div><div class="ev-badge ev-good">Dobrá evidencia</div><div class="supp-name">Kurkumín + piperíne</div><div class="supp-dose">500–1000mg</div><div class="supp-when">⏰ S jedlom (tučným)</div><div class="supp-why">Silný protizápalový efekt. MUSÍ byť s piperínom pre vstrebávanie.</div></div>
   </div>
   <div class="card" style="background:var(--amber-light);border-color:#F0B070;"><div style="font-weight:700;color:var(--amber);margin-bottom:8px;">📦 Kde kúpiť</div><div style="font-size:13px;line-height:1.9;color:var(--ink);"><strong>Kolagén:</strong> dm, Tesco, lekáreň – "hydrolyzovaný kolagén" prášok<br><strong>D3:</strong> Lekáreň – 4000 IU (Valentis, MyProtein)<br><strong>Magnézium glycinát:</strong> Dr. Max, Pilulka – nie oxid!<br><strong>Omega-3:</strong> dm alebo lekáreň – skontroluj EPA+DHA obsah<br><strong>Kurkumín:</strong> "kurkumín s bioperínom" – Pilulka, Dr. Max</div></div>
 </div>
@@ -379,14 +632,14 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--in
 <div class="screen" id="screen-rutina">
   <div class="sec-label">Každý deň</div>
   <div class="sec-title">Denná rutina</div>
-  <div class="sec-sub">Pracovný deň · víkendy: prechádzka so psom</div>
+  <div class="sec-sub">Pracovný deň · víkendy: walk so psom</div>
   <div class="card">
     <div class="timeline">
-      <div class="tl-item"><div class="tl-time">Ráno – pred odchodom</div><div class="tl-action">Cat-Cow + bránicové dýchanie</div><div class="tl-detail">5–10 minút. Disk sa ráno rehydroval – mobilizácia ho naštartuje na deň. Nikdy nevynechaj.</div></div>
+      <div class="tl-item"><div class="tl-time">Ráno – pred odchodom</div><div class="tl-action">Cat-Cow + bránicové dýchanie</div><div class="tl-detail">5–10 minút. Disk sa ráno rehydroval – mobilizácia ho naštartuje. Nikdy nevynechaj.</div></div>
       <div class="tl-item"><div class="tl-time">Ráno – raňajky</div><div class="tl-action">D3 + Omega-3</div><div class="tl-detail">S jedlom obsahujúcim tuk – D3 je vitamín rozpustný v tukoch.</div></div>
       <div class="tl-item"><div class="tl-time">Práca – každých 45–60 min</div><div class="tl-action">Vstať, 2–3 min pohybu</div><div class="tl-detail">Tlak na L4-L5 je najvyšší pri sedení. Nastav si pripomienku.</div></div>
-      <div class="tl-item"><div class="tl-time">Pred tréningom (30–60 min)</div><div class="tl-action">Kolagén 10g + Vitamín C 500mg</div><div class="tl-detail">Musí byť v krvi počas záťaže spojivového tkaniva – načasovanie je kľúčové.</div></div>
-      <div class="tl-item"><div class="tl-time">Po práci</div><div class="tl-action">Tréning podľa plánu</div><div class="tl-detail">20–25 minút. Ak si unavený – urob aspoň mobilitu.</div></div>
+      <div class="tl-item"><div class="tl-time">Pred tréningom (30–60 min)</div><div class="tl-action">Kolagén 10g + Vitamín C 500mg</div><div class="tl-detail">Musí byť v krvi počas záťaže spojivového tkaniva.</div></div>
+      <div class="tl-item"><div class="tl-time">Po práci</div><div class="tl-action">Tréning podľa plánu</div><div class="tl-detail">25–30 minút. Ak si unavený – urob aspoň mobilitu.</div></div>
       <div class="tl-item"><div class="tl-time">Večera</div><div class="tl-action">Kurkumín + piperíne</div><div class="tl-detail">S tučným jedlom pre lepšie vstrebávanie.</div></div>
       <div class="tl-item"><div class="tl-time">Pred spaním</div><div class="tl-action">Magnézium glycinát 300–400mg</div><div class="tl-detail">Relaxácia svalov, lepší spánok. Disk sa regeneruje v noci.</div></div>
       <div class="tl-item"><div class="tl-time">Noc</div><div class="tl-action">7–8 hodín · správna poloha</div><div class="tl-detail">Na boku: vankúš medzi kolenami. Na chrbte: vankúš pod kolenami.</div></div>
@@ -394,7 +647,7 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--in
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
     <div class="card" style="margin-bottom:0;"><div style="font-size:22px;margin-bottom:6px;">💧</div><div style="font-weight:600;margin-bottom:3px;font-size:14px;">Hydratácia</div><div style="font-size:12px;color:var(--ink2);">Nucleus pulposus je z 80% voda. Cieľ: 2–2,5l denne.</div></div>
-    <div class="card" style="margin-bottom:0;"><div style="font-size:22px;margin-bottom:6px;">🌡️</div><div style="font-weight:600;margin-bottom:3px;font-size:14px;">Teplo</div><div style="font-size:12px;color:var(--ink2);">Pri diskomforte (nie zápal) teplo pomáha. Podložka, sprcha, sauna 2–3×/týž.</div></div>
+    <div class="card" style="margin-bottom:0;"><div style="font-size:22px;margin-bottom:6px;">🌡️</div><div style="font-weight:600;margin-bottom:3px;font-size:14px;">Teplo</div><div style="font-size:12px;color:var(--ink2);">Pri diskomforte teplo pomáha. Podložka, sprcha, sauna 2–3×/týž.</div></div>
   </div>
 </div>
 
@@ -417,225 +670,144 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--in
 </div>
 
 <script>
-// ══════════ CONFIG ══════════
-const PHASES = {
-  1: { total: 20, label: 'Reaktivácia', next: 2 },
-  2: { total: 30, label: 'Posilnenie',  next: 3 },
-  3: { total: 20, label: 'Kalistenika', next: 4 },
-  4: { total: null, label: 'Plný výkon', next: null }
-};
-const DAYS = ['po','ut','st','st2','pi'];
-const DAY_NAMES = { po:'Core A – Reaktivácia', ut:'Mobilita & Uvoľnenie', st:'Core B – Stabilita', st2:'Mobilita + Dych', pi:'Core A+ – Záver týždňa' };
-const DAY_SUBS  = { po:'5 pohybov · 20 minút', ut:'5 pohybov · 20 minút', st:'5 pohybov · 20 minút', st2:'Mobilita + dych · 20 minút', pi:'Kombinácia · 25 minút' };
+const PHASES={1:{total:20,label:'Reaktivácia',next:2},2:{total:30,label:'Posilnenie',next:3},3:{total:20,label:'Kalistenika',next:4},4:{total:null,label:'Plný výkon',next:null}};
+const DAYS=['po','ut','st','st2','pi'];
+const DAY_NAMES={po:'Core + Nohy A',ut:'Mobilita celého tela',st:'Core + Nohy B',st2:'Mobilita + Dych',pi:'Kompletný tréning'};
+const DAY_SUBS={po:'6 pohybov · 25 minút',ut:'8 pohybov · 25 minút',st:'6 pohybov · 25 minút',st2:'Mobilita + dych · 25 minút',pi:'9 pohybov · 30 minút'};
 
-// ══════════ STATE ══════════
-function loadState() {
-  try { return JSON.parse(localStorage.getItem('kalirehab_v2') || 'null') || defaultState(); }
-  catch(e) { return defaultState(); }
-}
-function defaultState() {
-  return { phase: 1, completed: { 1:[], 2:[], 3:[], 4:[] }, unlocked: [1] };
-}
-function save() { localStorage.setItem('kalirehab_v2', JSON.stringify(ST)); }
+function loadState(){try{return JSON.parse(localStorage.getItem('kalirehab_v3')||'null')||defState()}catch(e){return defState()}}
+function defState(){return{phase:1,completed:{1:[],2:[],3:[],4:[]},unlocked:[1]}}
+function save(){localStorage.setItem('kalirehab_v3',JSON.stringify(ST))}
 
-let ST = loadState();
-let currentPhaseView = 1;
-let currentDayView = 'po';
+let ST=loadState();
+let currentPhaseView=1;
+let currentDayView='po';
 
-// ══════════ INIT ══════════
-function init() {
-  refreshAll();
-  // auto-select next suggested day in training view
-  const nextDay = getNextDay();
-  switchDay(nextDay, document.getElementById('dtab-' + nextDay));
+function init(){refreshAll();const nd=getNextDay();switchDay(nd,document.getElementById('dtab-'+nd))}
+
+function refreshAll(){updateHeader();updateProgressCard();updateTodayCard();updatePhaseTabs();updateCompleteBtns()}
+
+function updateHeader(){
+  const p=ST.phase;
+  document.getElementById('headerBadge').textContent='Fáza '+p;
+  const segs=document.getElementById('phaseBarSegs').children;
+  for(let i=0;i<4;i++){const n=i+1;segs[i].className='pb-seg'+(n<p?' done':n===p?' active':'')}
+  document.getElementById('phaseBarLabel').textContent=PHASES[p].label;
 }
 
-function refreshAll() {
-  updateHeader();
-  updateProgressCard();
-  updateTodayCard();
-  updatePhaseTabs();
-  updateCompleteBtns();
-}
-
-// ══════════ HEADER ══════════
-function updateHeader() {
-  const p = ST.phase;
-  document.getElementById('headerBadge').textContent = 'Fáza ' + p;
-  const segs = document.getElementById('phaseBarSegs').children;
-  for (let i = 0; i < 4; i++) {
-    const n = i + 1;
-    segs[i].className = 'pb-seg' + (n < p ? ' done' : n === p ? ' active' : '');
-  }
-  document.getElementById('phaseBarLabel').textContent = PHASES[p].label;
-}
-
-// ══════════ PROGRESS CARD ══════════
-function updateProgressCard() {
-  const p = ST.phase;
-  const done = ST.completed[p].length;
-  const total = PHASES[p].total;
-  document.getElementById('progTitle').textContent = 'Fáza ' + p + ' – ' + PHASES[p].label;
-  document.getElementById('progDone').textContent = done;
-  document.getElementById('progTotal').textContent = total ? ' / ' + total : ' tréningov';
-  const pct = total ? Math.min(100, (done / total) * 100) : 100;
-  document.getElementById('progFill').style.width = pct + '%';
-  // milestones
-  if (total) {
-    const mVals = [0, Math.floor(total*0.25), Math.floor(total*0.5), total];
-    const mLabels = ['Štart', '¼', '½', 'Fáza '+(p+1)+' 🔓'];
-    ['pm0','pm1','pm2','pm3'].forEach((id, i) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.textContent = mLabels[i];
-      el.className = 'prog-milestone' + (done >= mVals[i] && mVals[i] > 0 ? ' reached' : '');
+function updateProgressCard(){
+  const p=ST.phase,done=ST.completed[p].length,total=PHASES[p].total;
+  document.getElementById('progTitle').textContent='Fáza '+p+' – '+PHASES[p].label;
+  document.getElementById('progDone').textContent=done;
+  document.getElementById('progTotal').textContent=total?' / '+total:' tréningov';
+  const pct=total?Math.min(100,(done/total)*100):100;
+  document.getElementById('progFill').style.width=pct+'%';
+  if(total){
+    const mv=[0,Math.floor(total*.25),Math.floor(total*.5),total];
+    const ml=['Štart','Týž. 2','Týž. 3','Fáza '+(p+1)+' 🔓'];
+    ['pm0','pm1','pm2','pm3'].forEach((id,i)=>{
+      const el=document.getElementById(id);if(!el)return;
+      el.textContent=ml[i];el.className='prog-milestone'+(done>=mv[i]&&mv[i]>0?' reached':'');
     });
   }
 }
 
-// ══════════ TODAY CARD ══════════
-function getNextDay() {
-  const p = ST.phase;
-  const done = ST.completed[p].length;
-  return DAYS[done % DAYS.length];
-}
-function updateTodayCard() {
-  const p = ST.phase;
-  const day = getNextDay();
-  document.getElementById('todayPhaseSub').textContent = 'Fáza ' + p + ' – ' + PHASES[p].label;
-  document.getElementById('todayName').textContent = DAY_NAMES[day] || '–';
-  document.getElementById('todaySub').textContent = (DAY_SUBS[day] || '') + ' · po práci';
+function getNextDay(){const p=ST.phase,done=ST.completed[p].length;return DAYS[done%DAYS.length]}
+
+function updateTodayCard(){
+  const p=ST.phase,day=getNextDay();
+  document.getElementById('todayPhaseSub').textContent='Fáza '+p+' – '+PHASES[p].label;
+  document.getElementById('todayName').textContent=DAY_NAMES[day]||'–';
+  document.getElementById('todaySub').textContent=(DAY_SUBS[day]||'')+' · po práci';
 }
 
-// ══════════ PHASE TABS ══════════
-function updatePhaseTabs() {
-  [1,2,3,4].forEach(n => {
-    const tab = document.getElementById('ptab' + n);
-    if (!tab) return;
-    const isUnlocked = ST.unlocked.includes(n);
-    const isActive = n === currentPhaseView;
-    tab.className = 'ptab' + (isActive ? ' active' : isUnlocked ? ' unlocked' : ' locked');
-    tab.textContent = (isUnlocked ? '' : '🔒 ') + 'Fáza ' + n;
+function updatePhaseTabs(){
+  [1,2,3,4].forEach(n=>{
+    const tab=document.getElementById('ptab'+n);if(!tab)return;
+    const u=ST.unlocked.includes(n),a=n===currentPhaseView;
+    tab.className='ptab'+(a?' active':u?' unlocked':' locked');
+    tab.textContent=(u?'':'🔒 ')+'Fáza '+n;
   });
 }
 
-// ══════════ COMPLETE BUTTONS ══════════
-function updateCompleteBtns() {
-  const p = ST.phase;
-  const done = ST.completed[p];
-  // "done this round" = last N completed entries cover this day slot
-  // Simple approach: track last full week cycle
-  const lastFive = done.slice(-DAYS.length);
-  DAYS.forEach(day => {
-    const btn = document.getElementById('complete-' + day);
-    if (!btn) return;
-    const alreadyDone = lastFive.includes(day);
-    btn.textContent = alreadyDone ? '✓ Tento tréning už máš za sebou' : '✓ Označiť tréning ako hotový';
-    btn.className = 'complete-day-btn' + (alreadyDone ? ' already-done' : '');
-    btn.disabled = alreadyDone;
+function updateCompleteBtns(){
+  const p=ST.phase,done=ST.completed[p],lastFive=done.slice(-DAYS.length);
+  DAYS.forEach(day=>{
+    const btn=document.getElementById('complete-'+day);if(!btn)return;
+    const d=lastFive.includes(day);
+    btn.textContent=d?'✓ Tento tréning už máš za sebou':'✓ Označiť tréning ako hotový';
+    btn.className='complete-day-btn'+(d?' already-done':'');
+    btn.disabled=d;
   });
 }
 
-// ══════════ COMPLETE DAY ══════════
-function completeDay(day) {
-  const p = ST.phase;
-  const lastFive = ST.completed[p].slice(-DAYS.length);
-  if (lastFive.includes(day)) return;
-
+function completeDay(day){
+  const p=ST.phase,lastFive=ST.completed[p].slice(-DAYS.length);
+  if(lastFive.includes(day))return;
   ST.completed[p].push(day);
-  const total = ST.completed[p].length;
-  const phaseTotal = PHASES[p].total;
-  save();
-  refreshAll();
-
-  if (phaseTotal && total >= phaseTotal) {
-    const next = PHASES[p].next;
-    if (next && !ST.unlocked.includes(next)) {
-      ST.unlocked.push(next);
-      if (next === ST.phase + 1) ST.phase = next; // auto-advance? No – keep, let user see
-      save();
-      updatePhaseTabs();
-      showModal('🎊', 'Fáza ' + p + ' splnená!', 'Neuveriteľná práca – ' + total + ' tréningov odcvičených. Fáza ' + next + ' je teraz odomknutá!');
+  const total=ST.completed[p].length,phaseTotal=PHASES[p].total;
+  save();refreshAll();
+  if(phaseTotal&&total>=phaseTotal){
+    const next=PHASES[p].next;
+    if(next&&!ST.unlocked.includes(next)){
+      ST.unlocked.push(next);save();updatePhaseTabs();
+      showModal('🎊','Fáza '+p+' splnená!','Neuveriteľná práca – '+total+' tréningov odcvičených. Fáza '+next+' je teraz odomknutá!');
     }
-  } else {
-    const rem = phaseTotal ? phaseTotal - total : '–';
-    showModal('✅', 'Tréning hotový!', 'Výborne! Zostáva ti ' + rem + ' tréningov do odomknutia ďalšej fázy.');
+  }else{
+    const rem=phaseTotal?phaseTotal-total:'–';
+    showModal('✅','Tréning hotový!','Výborne! Zostáva ti '+rem+' tréningov do odomknutia Fázy '+(p+1)+'.');
   }
 }
 
-function quickComplete() {
-  const day = getNextDay();
-  // switch to training screen first
-  goToTodayDay();
-  setTimeout(() => completeDay(day), 300);
+function switchScreen(id,btn){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  btn.classList.add('active');window.scrollTo(0,0);
 }
 
-// ══════════ NAVIGATION ══════════
-function switchScreen(id, btn) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('screen-' + id).classList.add('active');
-  btn.classList.add('active');
-  window.scrollTo(0,0);
+function goToTodayDay(){
+  switchScreen('trening',document.querySelectorAll('.nav-btn')[1]);
+  const day=getNextDay();
+  switchDay(day,document.getElementById('dtab-'+day));
 }
 
-function goToTraining() {
-  switchScreen('trening', document.querySelectorAll('.nav-btn')[1]);
-}
-
-function goToTodayDay() {
-  goToTraining();
-  const day = getNextDay();
-  switchDay(day, document.getElementById('dtab-' + day));
-}
-
-function switchPhase(num, el) {
-  if (!ST.unlocked.includes(num)) return;
-  currentPhaseView = num;
-  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+function switchPhase(num,el){
+  if(!ST.unlocked.includes(num))return;
+  currentPhaseView=num;
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  [1,2,3,4].forEach(n => {
-    const c = document.getElementById('phase-content-' + n);
-    if (c) c.style.display = n === num ? 'block' : 'none';
-  });
+  [1,2,3,4].forEach(n=>{const c=document.getElementById('phase-content-'+n);if(c)c.style.display=n===num?'block':'none'});
   window.scrollTo(0,0);
 }
 
-function tryPhase(num, el) {
-  if (ST.unlocked.includes(num)) { switchPhase(num, el); return; }
-  const p = ST.phase;
-  const rem = PHASES[p].total - ST.completed[p].length;
-  showModal('🔒', 'Fáza ' + num + ' je zamknutá', 'Najprv dokonči Fázu ' + p + '. Zostáva ti ' + rem + ' tréningov.');
+function tryPhase(num,el){
+  if(ST.unlocked.includes(num)){switchPhase(num,el);return}
+  const p=ST.phase,rem=PHASES[p].total-ST.completed[p].length;
+  showModal('🔒','Fáza '+num+' je zamknutá','Najprv dokonči Fázu '+p+'. Zostáva ti '+rem+' tréningov.');
 }
 
-function switchDay(day, el) {
-  currentDayView = day;
-  DAYS.forEach(d => {
-    const e = document.getElementById('day-' + d);
-    if (e) e.style.display = d === day ? 'block' : 'none';
-  });
-  document.querySelectorAll('#dayTabs1 .dtab:not(.rest)').forEach(t => t.classList.remove('active'));
-  if (el) el.classList.add('active');
+function switchDay(day,el){
+  currentDayView=day;
+  DAYS.forEach(d=>{const e=document.getElementById('day-'+d);if(e)e.style.display=d===day?'block':'none'});
+  document.querySelectorAll('#dayTabs1 .dtab:not(.rest)').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
   window.scrollTo(0,0);
 }
 
-// ══════════ EXERCISE ACCORDION ══════════
-function toggleEx(card) {
-  const wasOpen = card.classList.contains('open');
-  card.closest('[id^="day-"]')?.querySelectorAll('.ex-card').forEach(c => c.classList.remove('open'));
-  if (!wasOpen) card.classList.add('open');
+function toggleEx(card){
+  const wasOpen=card.classList.contains('open');
+  card.closest('[id^="day-"]')?.querySelectorAll('.ex-card').forEach(c=>c.classList.remove('open'));
+  if(!wasOpen)card.classList.add('open');
 }
 
-// ══════════ MODAL ══════════
-function showModal(icon, title, text) {
-  document.getElementById('modalIcon').textContent = icon;
-  document.getElementById('modalTitle').textContent = title;
-  document.getElementById('modalText').textContent = text;
+function showModal(icon,title,text){
+  document.getElementById('modalIcon').textContent=icon;
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalText').textContent=text;
   document.getElementById('modalOverlay').classList.add('visible');
 }
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('visible');
-}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('visible')}
 
 init();
 </script>
