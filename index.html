@@ -2,1447 +2,642 @@
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>KaliTrack</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="KaliRehab">
+<title>KaliRehab – Môj plán</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:       #0c0c0e;
-  --panel:    #141417;
-  --card:     #1a1a1f;
-  --border:   rgba(255,255,255,0.07);
-  --border2:  rgba(255,255,255,0.12);
-  --accent:   #e8ff47;
-  --accent2:  #ff4757;
-  --accent3:  #47c2ff;
-  --accent4:  #ff8c42;
-  --text:     #f0f0f5;
-  --muted:    #6b6b80;
-  --dim:      #3a3a4a;
-  --mono:     'DM Mono', monospace;
-  --head:     'Cabinet Grotesk', sans-serif;
-  --body:     'Cabinet Grotesk', sans-serif;
-  --red:      #ff4757;
-  --green:    #2ecc71;
-  --col-a:    #ff4757;
-  --col-b:    #47c2ff;
-  --col-c:    #ff8c42;
+  --bg: #F5F2ED; --surface: #FFFFFF; --surface2: #FAF8F5;
+  --ink: #1A1A1A; --ink2: #5C5C5C; --ink3: #9A9A9A; --border: #E8E3DA;
+  --green: #2A6B4A; --green-mid: #4A9B72; --green-light: #EAF4EE; --green-xlight: #F3FAF6;
+  --amber: #C8722A; --amber-light: #FDF3EA;
+  --blue: #2856A3; --blue-light: #EEF3FC;
+  --red: #C0392B; --red-light: #FDECEA;
+  --gold: #B8860B; --gold-light: #FBF7E8;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06); --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --r: 14px; --r-sm: 8px;
 }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; font-size: 15px; line-height: 1.5; padding-bottom: 90px; }
 
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+/* HEADER */
+.app-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 20px 12px; position: sticky; top: 0; z-index: 200; box-shadow: var(--shadow-sm); }
+.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.app-title { font-family: 'Playfair Display', serif; font-size: 21px; color: var(--green); }
+.app-subtitle { font-size: 12px; color: var(--ink3); }
+.phase-badge { background: var(--green); color: #fff; font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 20px; }
+.phase-bar-wrap { display: flex; align-items: center; gap: 6px; }
+.phase-bar-segs { display: flex; gap: 3px; flex: 1; }
+.pb-seg { flex: 1; height: 5px; border-radius: 3px; background: var(--border); transition: background 0.4s; }
+.pb-seg.done { background: var(--green-mid); }
+.pb-seg.active { background: var(--green); }
+.phase-bar-label { font-size: 11px; color: var(--ink3); white-space: nowrap; }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--body);
-  min-height: 100vh;
-  overflow-x: hidden;
-  max-width: 430px;
-  margin: 0 auto;
-}
+/* BOTTOM NAV */
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); display: flex; z-index: 200; box-shadow: 0 -2px 12px rgba(0,0,0,0.07); }
+.nav-btn { flex: 1; padding: 10px 4px 12px; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; border: none; background: none; transition: all 0.2s; }
+.nav-btn .nav-icon { font-size: 22px; transition: transform 0.2s; }
+.nav-btn .nav-label { font-size: 10px; font-weight: 600; color: var(--ink3); letter-spacing: 0.3px; text-transform: uppercase; }
+.nav-btn.active .nav-icon { transform: scale(1.15); }
+.nav-btn.active .nav-label { color: var(--green); }
+.nav-btn:active .nav-icon { transform: scale(0.9); }
 
-/* ── HEADER ── */
-.app-header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(12,12,14,0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 20px 12px;
-  display: flex; align-items: center; justify-content: space-between;
-}
+/* SCREENS */
+.screen { display: none; padding: 20px 16px; }
+.screen.active { display: block; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-.logo-wrap { display: flex; align-items: center; gap: 10px; }
+/* TYPOGRAPHY */
+.sec-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
+.sec-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--ink); margin-bottom: 4px; }
+.sec-sub { font-size: 13px; color: var(--ink2); margin-bottom: 20px; }
 
-.logo-icon {
-  width: 34px; height: 34px;
-  background: var(--accent);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-}
+/* CARDS */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
 
-.app-title {
-  font-family: var(--head);
-  font-weight: 900;
-  font-size: 18px;
-  letter-spacing: -0.5px;
-  color: var(--text);
-}
-.app-title span { color: var(--accent); }
+/* TODAY CARD */
+.today-card { background: var(--green); border-radius: var(--r); padding: 20px; margin-bottom: 14px; color: white; position: relative; overflow: hidden; }
+.today-card::after { content: ''; position: absolute; right: -20px; top: -20px; width: 110px; height: 110px; border-radius: 50%; background: rgba(255,255,255,0.06); pointer-events: none; }
+.today-label { font-size: 11px; font-weight: 600; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+.today-name { font-family: 'Playfair Display', serif; font-size: 21px; margin-bottom: 2px; }
+.today-sub { font-size: 13px; opacity: 0.8; margin-bottom: 16px; }
+.today-actions { display: flex; gap: 8px; }
+.today-btn { background: white; color: var(--green); border: none; border-radius: 10px; padding: 10px 18px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.15s; flex: 1; }
+.today-btn:active { transform: scale(0.97); }
+.today-btn.secondary { background: rgba(255,255,255,0.15); color: white; border: 1.5px solid rgba(255,255,255,0.4); flex: none; }
 
-.header-right { text-align: right; }
-.header-date {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.5px;
-}
-.header-streak {
-  font-family: var(--head);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--accent);
-  margin-top: 1px;
-}
+/* PROGRESS CARD */
+.progress-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+.prog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.prog-title { font-weight: 700; font-size: 15px; }
+.prog-count { font-size: 13px; color: var(--ink2); }
+.prog-count strong { color: var(--green); font-size: 20px; }
+.prog-bar-bg { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; margin-bottom: 8px; }
+.prog-bar-fill { height: 100%; background: var(--green); border-radius: 5px; transition: width 0.5s ease; }
+.prog-milestones { display: flex; justify-content: space-between; }
+.prog-milestone { font-size: 10px; color: var(--ink3); text-align: center; }
+.prog-milestone.reached { color: var(--green); font-weight: 600; }
 
-/* ── NAV ── */
-.nav-tabs {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  background: var(--panel);
-  border-bottom: 1px solid var(--border);
-}
+/* WEEK STRIP */
+.week-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 14px; }
+.day-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 8px 4px; text-align: center; }
+.day-pill.training { border-color: var(--green-mid); background: var(--green-xlight); }
+.day-pill.rest { border-color: var(--gold); background: var(--gold-light); }
+.day-pill.today-pill { border-color: var(--green); background: var(--green); }
+.dp-name { font-size: 9px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--ink3); }
+.today-pill .dp-name, .today-pill .dp-type { color: rgba(255,255,255,0.85); }
+.dp-icon { font-size: 15px; margin: 3px 0; }
+.dp-type { font-size: 9px; color: var(--ink3); font-weight: 500; }
 
-.nav-tab {
-  padding: 12px 4px 10px;
-  text-align: center;
-  font-family: var(--head);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: var(--muted);
-  cursor: pointer;
-  position: relative;
-  transition: color 0.2s;
-}
-.nav-tab::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 20%; right: 20%;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 2px 2px 0 0;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.nav-tab.active { color: var(--text); }
-.nav-tab.active::after { opacity: 1; }
-.nav-tab-icon { font-size: 16px; display: block; margin-bottom: 3px; }
+/* SUPP QUICK */
+.supp-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.sq-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 11px; display: flex; align-items: center; gap: 9px; }
+.sq-icon { font-size: 18px; flex-shrink: 0; }
+.sq-name { font-size: 12px; font-weight: 600; }
+.sq-time { font-size: 11px; color: var(--ink3); }
 
-/* ── PAGES ── */
-.page { display: none; padding: 16px; padding-bottom: 32px; }
-.page.active { display: block; }
+/* INFO BOXES */
+.info-box { border-radius: var(--r); padding: 14px 16px; margin-bottom: 12px; display: flex; gap: 12px; }
+.info-box.warn { background: var(--amber-light); border: 1px solid #F0B070; }
+.info-box.info { background: var(--blue-light); border: 1px solid #A8C0E8; }
+.info-box.success { background: var(--green-light); border: 1px solid #8DC4A8; }
+.info-icon { font-size: 22px; flex-shrink: 0; }
+.info-title { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+.info-text { font-size: 12px; line-height: 1.6; }
+.warn .info-title, .warn .info-text { color: #8B4A00; }
+.info .info-title, .info .info-text { color: #1A3570; }
+.success .info-title, .success .info-text { color: var(--green); }
 
-/* ── DAY SELECTOR ── */
-.day-selector {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 20px;
-}
+/* PHASE TABS */
+.phase-tabs { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.phase-tabs::-webkit-scrollbar { display: none; }
+.ptab { padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; white-space: nowrap; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); color: var(--ink2); transition: all 0.2s; flex-shrink: 0; }
+.ptab.active { background: var(--green); border-color: var(--green); color: white; }
+.ptab.unlocked { border-color: var(--green-mid); color: var(--green); }
+.ptab.locked { opacity: 0.4; cursor: default; }
 
-.day-btn {
-  background: var(--card);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
-  padding: 16px 8px 12px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-.day-btn::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: currentColor;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.day-btn.sel-a { border-color: var(--col-a); color: var(--col-a); background: rgba(255,71,87,0.08); }
-.day-btn.sel-b { border-color: var(--col-b); color: var(--col-b); background: rgba(71,194,255,0.08); }
-.day-btn.sel-c { border-color: var(--col-c); color: var(--col-c); background: rgba(255,140,66,0.08); }
-.day-btn.sel-a::before, .day-btn.sel-b::before, .day-btn.sel-c::before { opacity: 1; }
+/* DAY TABS */
+.day-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.dtab { padding: 6px 13px; border-radius: 16px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); color: var(--ink2); transition: all 0.2s; }
+.dtab.active { background: var(--green-light); border-color: var(--green); color: var(--green); }
+.dtab.rest { background: var(--gold-light); border-color: var(--gold); color: var(--gold); cursor: default; }
+.dtab.completed { position: relative; }
+.dtab.completed::after { content: '✓'; margin-left: 4px; font-size: 11px; }
 
-.day-letter {
-  font-family: var(--head);
-  font-size: 28px;
-  font-weight: 900;
-  display: block;
-  margin-bottom: 4px;
-  line-height: 1;
-}
-.day-btn:not(.sel-a):not(.sel-b):not(.sel-c) .day-letter { color: var(--text); }
-.day-sub {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.day-btn.sel-a .day-sub { color: var(--col-a); opacity: 0.8; }
-.day-btn.sel-b .day-sub { color: var(--col-b); opacity: 0.8; }
-.day-btn.sel-c .day-sub { color: var(--col-c); opacity: 0.8; }
+/* COMPLETE BUTTON */
+.complete-day-wrap { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+.complete-day-btn { width: 100%; padding: 15px; background: var(--green); color: white; border: none; border-radius: var(--r); font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.2s; }
+.complete-day-btn:active { transform: scale(0.98); }
+.complete-day-btn.already-done { background: var(--border); color: var(--ink3); cursor: default; }
+.complete-day-btn.already-done:active { transform: none; }
 
-/* ── SECTION LABEL ── */
-.sec-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
-  padding-left: 2px;
-}
+/* EXERCISE CARDS */
+.ex-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r); margin-bottom: 10px; overflow: hidden; box-shadow: var(--shadow-sm); transition: border-color 0.2s; }
+.ex-card.open { border-color: var(--green); }
+.ex-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; user-select: none; }
+.ex-num { width: 32px; height: 32px; border-radius: 50%; background: var(--green-light); color: var(--green); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ex-info { flex: 1; }
+.ex-name { font-weight: 600; font-size: 15px; margin-bottom: 3px; }
+.ex-meta { display: flex; gap: 5px; flex-wrap: wrap; }
+.tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
+.tag-green { background: var(--green-light); color: var(--green); }
+.tag-amber { background: var(--amber-light); color: var(--amber); }
+.tag-blue { background: var(--blue-light); color: var(--blue); }
+.tag-gray { background: var(--border); color: var(--ink2); }
+.ex-arrow { color: var(--ink3); font-size: 18px; transition: transform 0.25s; flex-shrink: 0; }
+.ex-card.open .ex-arrow { transform: rotate(180deg); }
+.ex-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); animation: fadeUp 0.2s ease; }
+.ex-card.open .ex-body { display: block; }
+.ex-section { margin-top: 12px; }
+.ex-section-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
+.ex-text { font-size: 13px; color: var(--ink); line-height: 1.7; }
+.ex-tip { background: var(--green-xlight); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; padding: 9px 12px; font-size: 12px; color: var(--green); font-weight: 500; margin-top: 10px; line-height: 1.5; }
+.ex-warn { background: var(--red-light); border-left: 3px solid var(--red); border-radius: 0 8px 8px 0; padding: 9px 12px; font-size: 12px; color: var(--red); font-weight: 500; margin-top: 8px; line-height: 1.5; }
 
-/* ── LEVEL BADGE ── */
-.level-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-family: var(--mono);
-  font-size: 9px;
-  font-weight: 500;
-  padding: 2px 7px;
-  border-radius: 20px;
-  margin-left: 6px;
-  background: rgba(232,255,71,0.1);
-  color: var(--accent);
-  border: 1px solid rgba(232,255,71,0.2);
-  vertical-align: middle;
-}
+/* SUPPLEMENTS */
+.supp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.supp-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; box-shadow: var(--shadow-sm); }
+.supp-icon-big { font-size: 26px; margin-bottom: 7px; }
+.supp-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+.supp-dose { font-size: 13px; color: var(--green); font-weight: 600; margin-bottom: 3px; }
+.supp-when { font-size: 11px; color: var(--ink3); margin-bottom: 6px; }
+.supp-why { font-size: 12px; color: var(--ink2); line-height: 1.5; }
+.ev-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 8px; margin-bottom: 6px; }
+.ev-high { background: var(--green-light); color: var(--green); }
+.ev-good { background: var(--gold-light); color: var(--gold); }
 
-/* ── EXERCISE CARDS ── */
-.exercise-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  margin-bottom: 12px;
-  overflow: hidden;
-  transition: border-color 0.25s, opacity 0.25s;
-}
-.exercise-card.done {
-  border-color: rgba(46,204,113,0.3);
-  opacity: 0.6;
-}
+/* TIMELINE */
+.timeline { padding-left: 22px; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); border-radius: 2px; }
+.tl-item { position: relative; margin-bottom: 18px; }
+.tl-item::before { content: ''; position: absolute; left: -18px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--green); border: 2px solid var(--bg); box-shadow: 0 0 0 2px var(--green); }
+.tl-time { font-size: 10px; font-weight: 700; color: var(--green); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 2px; }
+.tl-action { font-size: 14px; font-weight: 600; }
+.tl-detail { font-size: 12px; color: var(--ink2); line-height: 1.5; margin-top: 2px; }
 
-.ex-top {
-  padding: 14px 16px 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-}
+/* PHASE COMING */
+.phase-coming { background: var(--surface2); border: 1.5px dashed var(--border); border-radius: var(--r); padding: 28px 20px; text-align: center; color: var(--ink3); }
+.phase-coming-icon { font-size: 36px; margin-bottom: 10px; }
+.phase-coming-title { font-weight: 700; font-size: 16px; color: var(--ink2); margin-bottom: 6px; }
+.phase-coming-sub { font-size: 13px; line-height: 1.7; }
 
-.ex-name {
-  font-family: var(--head);
-  font-size: 15px;
-  font-weight: 800;
-  line-height: 1.3;
-  flex: 1;
-}
-
-.ex-target {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--accent);
-  background: rgba(232,255,71,0.08);
-  border: 1px solid rgba(232,255,71,0.15);
-  padding: 4px 9px;
-  border-radius: 20px;
-  white-space: nowrap;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.ex-note {
-  font-size: 11px;
-  color: var(--muted);
-  padding: 6px 16px 0;
-  line-height: 1.5;
-}
-
-.ex-last {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--accent4);
-  padding: 4px 16px 0;
-}
-.ex-last span { color: var(--dim); }
-
-/* ── SERIES INPUTS ── */
-.series-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  padding: 12px 16px 8px;
-}
-
-.serie-wrap { text-align: center; }
-.serie-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 5px;
-}
-
-.serie-input {
-  width: 100%;
-  background: var(--panel);
-  border: 1.5px solid var(--border2);
-  border-radius: 12px;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 26px;
-  font-weight: 500;
-  text-align: center;
-  padding: 12px 4px;
-  outline: none;
-  transition: border-color 0.2s, background 0.2s;
-  -moz-appearance: textfield;
-}
-.serie-input::-webkit-outer-spin-button,
-.serie-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-.serie-input:focus {
-  border-color: var(--accent);
-  background: rgba(232,255,71,0.04);
-}
-
-/* ── PROGRESS BAR ── */
-.prog-bar-wrap {
-  height: 3px;
-  background: var(--dim);
-  margin: 0 16px 10px;
-  border-radius: 3px;
-  overflow: hidden;
-}
-.prog-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent2), var(--accent));
-  border-radius: 3px;
-  transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* ── TIMER BTN ── */
-.timer-btn {
-  width: calc(100% - 32px);
-  margin: 0 16px 8px;
-  padding: 10px;
-  background: rgba(232,255,71,0.05);
-  border: 1px solid rgba(232,255,71,0.15);
-  border-radius: 12px;
-  color: var(--accent);
-  font-family: var(--head);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  transition: background 0.2s;
-}
-.timer-btn:active { background: rgba(232,255,71,0.1); }
-
-/* ── DONE BTN ── */
-.ex-done-btn {
-  width: calc(100% - 32px);
-  margin: 0 16px 16px;
-  padding: 11px;
-  background: transparent;
-  border: 1.5px solid var(--border2);
-  border-radius: 12px;
-  color: var(--muted);
-  font-family: var(--head);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.ex-done-btn.done {
-  background: rgba(46,204,113,0.1);
-  border-color: rgba(46,204,113,0.4);
-  color: var(--green);
-}
-
-/* ── SAVE BTN ── */
-.save-btn {
-  width: 100%;
-  padding: 16px;
-  background: var(--accent);
-  border: none;
-  border-radius: 16px;
-  color: #0c0c0e;
-  font-family: var(--head);
-  font-size: 14px;
-  font-weight: 900;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: opacity 0.15s, transform 0.1s;
-}
-.save-btn:active { opacity: 0.85; transform: scale(0.99); }
-
-/* ── TIMER OVERLAY ── */
-.timer-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.92);
-  backdrop-filter: blur(12px);
-  z-index: 200;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-.timer-overlay.show { display: flex; }
-
-.timer-box {
-  background: var(--panel);
-  border: 1px solid var(--border2);
-  border-radius: 32px;
-  padding: 36px 48px 32px;
-  text-align: center;
-  min-width: 280px;
-}
-
-.timer-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-}
-
-/* SVG Ring Timer */
-.timer-ring-wrap {
-  position: relative;
-  width: 160px;
-  height: 160px;
-  margin: 0 auto 24px;
-}
-.timer-ring-wrap svg { transform: rotate(-90deg); }
-.timer-ring-bg { fill: none; stroke: var(--dim); stroke-width: 6; }
-.timer-ring-progress {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 6;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 1s linear, stroke 0.3s;
-}
-.timer-ring-progress.done-ring { stroke: var(--green); }
-.timer-center {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.timer-count {
-  font-family: var(--head);
-  font-size: 52px;
-  font-weight: 900;
-  color: var(--accent);
-  line-height: 1;
-  letter-spacing: -2px;
-}
-.timer-count.done-c { color: var(--green); }
-.timer-sec-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-.timer-actions { display: flex; gap: 10px; justify-content: center; }
-
-.timer-skip {
-  padding: 12px 22px;
-  background: transparent;
-  border: 1.5px solid var(--border2);
-  border-radius: 12px;
-  color: var(--muted);
-  font-family: var(--head);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-}
-.timer-stop {
-  padding: 12px 22px;
-  background: var(--accent);
-  border: none;
-  border-radius: 12px;
-  color: #0c0c0e;
-  font-family: var(--head);
-  font-size: 13px;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-/* ── PROG GROUP METER ── */
-.prog-group-meter {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: auto;
-}
-.prog-meter-bar {
-  width: 60px;
-  height: 4px;
-  background: var(--dim);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.prog-meter-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent2), var(--accent));
-  border-radius: 4px;
-  transition: width 0.4s ease;
-}
-.prog-meter-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-/* ── MINULE CHIP ── */
-.ex-last-chips {
-  display: flex;
-  gap: 5px;
-  padding: 5px 16px 0;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.ex-last-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.ex-last-chip {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--accent);
-  background: rgba(232,255,71,0.08);
-  border: 1px solid rgba(232,255,71,0.18);
-  padding: 2px 8px;
-  border-radius: 20px;
-}
-
-/* ── STATS SUMMARY ── */
-.stats-summary {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 8px;
-  margin-bottom: 16px;
-}
-.stats-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 14px 10px;
-  text-align: center;
-}
-.stats-card-val {
-  font-family: var(--head);
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--accent);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.stats-card-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* ── PROGRESSION ── */
-.prog-group { margin-bottom: 24px; }
-
-.prog-group-title {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.prog-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  margin-bottom: 6px;
-  transition: all 0.2s;
-}
-.prog-item.current {
-  border-color: rgba(232,255,71,0.3);
-  background: rgba(232,255,71,0.05);
-  cursor: pointer;
-}
-.prog-item.current:active { transform: scale(0.99); }
-.prog-item.completed { opacity: 0.3; }
-
-.prog-num {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  width: 18px;
-  flex-shrink: 0;
-  text-align: center;
-}
-.prog-item.current .prog-num { color: var(--accent); font-weight: 500; }
-.prog-item.completed .prog-num { color: var(--green); }
-
-.prog-variant {
-  font-family: var(--head);
-  font-size: 13px;
-  font-weight: 700;
-  flex: 1;
-}
-.prog-target {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--muted);
-  text-align: right;
-}
-
-.prog-badge {
-  font-family: var(--mono);
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 20px;
-  flex-shrink: 0;
-}
-.badge-cur {
-  background: rgba(232,255,71,0.1);
-  color: var(--accent);
-  border: 1px solid rgba(232,255,71,0.2);
-}
-.badge-done {
-  background: rgba(46,204,113,0.1);
-  color: var(--green);
-  border: 1px solid rgba(46,204,113,0.2);
-}
-
-/* ── HISTORY ── */
-.history-empty {
-  text-align: center;
-  color: var(--muted);
-  font-size: 14px;
-  padding: 60px 20px;
-  line-height: 2;
-}
-.history-empty .big { font-size: 48px; display: block; margin-bottom: 12px; }
-
-.history-entry {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-
-.history-hdr {
-  padding: 12px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-}
-
-.hist-badge {
-  font-family: var(--head);
-  font-size: 12px;
-  font-weight: 800;
-  padding: 4px 12px;
-  border-radius: 20px;
-}
-.badge-a { background: rgba(255,71,87,0.15); color: var(--col-a); }
-.badge-b { background: rgba(71,194,255,0.12); color: var(--col-b); }
-.badge-c { background: rgba(255,140,66,0.12); color: var(--col-c); }
-
-.hist-date {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--muted);
-}
-
-.hist-exercises { padding: 8px 16px 12px; }
-
-.hist-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-}
-.hist-row:last-child { border-bottom: none; }
-.hist-name { color: var(--muted); flex: 1; }
-.hist-vals { font-family: var(--mono); font-size: 10px; display: flex; gap: 4px; }
-.hist-val {
-  background: var(--panel);
-  padding: 2px 6px;
-  border-radius: 5px;
-  color: var(--text);
-}
-.hist-del {
-  background: none;
-  border: none;
-  color: var(--dim);
-  font-size: 14px;
-  cursor: pointer;
-  padding: 2px 6px;
-  margin-left: 8px;
-  border-radius: 6px;
-  transition: color 0.2s;
-}
-.hist-del:hover { color: var(--accent2); }
-
-/* ── CHART ── */
-.chart-wrap {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 18px 16px;
-  margin-bottom: 16px;
-}
-.chart-title {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 14px;
-}
-.chart-select {
-  width: 100%;
-  background: var(--panel);
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  color: var(--text);
-  font-family: var(--head);
-  font-size: 13px;
-  font-weight: 700;
-  padding: 10px 12px;
-  outline: none;
-  margin-bottom: 16px;
-  cursor: pointer;
-}
-canvas { width: 100% !important; border-radius: 10px; }
-.chart-empty {
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  padding: 32px;
-}
-
-/* ── TOAST ── */
-.toast {
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--accent);
-  color: #0c0c0e;
-  font-family: var(--head);
-  font-weight: 900;
-  font-size: 13px;
-  padding: 12px 24px;
-  border-radius: 30px;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 999;
-  white-space: nowrap;
-  pointer-events: none;
-}
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* ── DIVIDER ── */
-.divider {
-  height: 1px;
-  background: var(--border);
-  margin: 0 16px 12px;
-}
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.modal-overlay.visible { opacity: 1; pointer-events: all; }
+.modal-box { background: var(--surface); border-radius: 20px; padding: 28px 24px; max-width: 340px; width: 100%; text-align: center; transform: scale(0.9); transition: transform 0.25s; }
+.modal-overlay.visible .modal-box { transform: scale(1); }
+.modal-icon { font-size: 52px; margin-bottom: 12px; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 8px; color: var(--ink); }
+.modal-text { font-size: 14px; color: var(--ink2); line-height: 1.6; margin-bottom: 20px; }
+.modal-btn { width: 100%; padding: 14px; background: var(--green); color: white; border: none; border-radius: 12px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; }
+.modal-btn:active { transform: scale(0.98); }
 </style>
 </head>
 <body>
 
 <div class="app-header">
-  <div class="logo-wrap">
-    <div class="logo-icon">⚡</div>
-    <div class="app-title">KALI<span>TRACK</span></div>
+  <div class="header-top">
+    <div><div class="app-title">KaliRehab</div><div class="app-subtitle">Môj 12-týždenný plán</div></div>
+    <div class="phase-badge" id="headerBadge">Fáza 1</div>
   </div>
-  <div class="header-right">
-    <div class="header-date" id="headerDate"></div>
-    <div class="header-streak" id="headerStreak"></div>
+  <div class="phase-bar-wrap">
+    <div class="phase-bar-segs" id="phaseBarSegs">
+      <div class="pb-seg active"></div><div class="pb-seg"></div><div class="pb-seg"></div><div class="pb-seg"></div>
+    </div>
+    <div class="phase-bar-label" id="phaseBarLabel">Reaktivácia</div>
   </div>
 </div>
 
-<div class="nav-tabs">
-  <div class="nav-tab active" onclick="showPage('train',this)">
-    <span class="nav-tab-icon">🏋️</span>Tréning
-  </div>
-  <div class="nav-tab" onclick="showPage('progress',this)">
-    <span class="nav-tab-icon">📈</span>Progress
-  </div>
-  <div class="nav-tab" onclick="showPage('history',this)">
-    <span class="nav-tab-icon">📋</span>História
-  </div>
-  <div class="nav-tab" onclick="showPage('stats',this)">
-    <span class="nav-tab-icon">📊</span>Graf
-  </div>
-</div>
+<!-- ══ DNES ══ -->
+<div class="screen active" id="screen-dnes">
+  <div class="sec-label">Dnešný deň</div>
+  <div class="sec-title">Dobrý deň, Martin 👋</div>
+  <div class="sec-sub" id="todayPhaseSub">Fáza 1 – Reaktivácia</div>
 
-<!-- TRÉNING -->
-<div class="page active" id="page-train">
-  <div class="day-selector">
-    <div class="day-btn" id="btn-a" onclick="selectDay('A')">
-      <span class="day-letter">A</span>
-      <span class="day-sub">Tlaky</span>
-    </div>
-    <div class="day-btn" id="btn-b" onclick="selectDay('B')">
-      <span class="day-letter">B</span>
-      <span class="day-sub">Ťahy</span>
-    </div>
-    <div class="day-btn" id="btn-c" onclick="selectDay('C')">
-      <span class="day-letter">C</span>
-      <span class="day-sub">Nohy</span>
+  <div class="today-card">
+    <div class="today-label">Ďalší tréning na rade</div>
+    <div class="today-name" id="todayName">Core A – Reaktivácia</div>
+    <div class="today-sub" id="todaySub">5 pohybov · 20 minút · po práci</div>
+    <div class="today-actions">
+      <button class="today-btn" onclick="goToTodayDay()">Otvoriť tréning →</button>
+      <button class="today-btn secondary" onclick="quickComplete()">✓ Hotovo</button>
     </div>
   </div>
-  <div class="sec-label" id="trainLabel">Vyber tréning</div>
-  <div id="exerciseList"></div>
-  <button class="save-btn" id="saveBtn" onclick="saveTraining()" style="display:none">Uložiť tréning →</button>
-</div>
 
-<!-- PROGRESSION -->
-<div class="page" id="page-progress">
-  <div class="prog-group">
-    <div class="prog-group-title">💪 Kľuky
-      <div class="prog-group-meter"><div class="prog-meter-bar"><div class="prog-meter-fill" id="meter-kliky"></div></div><span class="prog-meter-label" id="meter-kliky-txt"></span></div>
-    </div><div id="prog-kliky"></div>
+  <div class="progress-card">
+    <div class="prog-header">
+      <div class="prog-title" id="progTitle">Fáza 1 – Reaktivácia</div>
+      <div class="prog-count"><strong id="progDone">0</strong><span id="progTotal"> / 20</span></div>
+    </div>
+    <div class="prog-bar-bg"><div class="prog-bar-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-milestones">
+      <div class="prog-milestone" id="pm0">Štart</div>
+      <div class="prog-milestone" id="pm1">Týž. 2</div>
+      <div class="prog-milestone" id="pm2">Týž. 3</div>
+      <div class="prog-milestone" id="pm3">Fáza 2 🔓</div>
+    </div>
   </div>
-  <div class="prog-group">
-    <div class="prog-group-title">🏋️ Príťahy / Ťahy
-      <div class="prog-group-meter"><div class="prog-meter-bar"><div class="prog-meter-fill" id="meter-pritahy"></div></div><span class="prog-meter-label" id="meter-pritahy-txt"></span></div>
-    </div><div id="prog-pritahy"></div>
-  </div>
-  <div class="prog-group">
-    <div class="prog-group-title">🦵 Drepy
-      <div class="prog-group-meter"><div class="prog-meter-bar"><div class="prog-meter-fill" id="meter-drepy"></div></div><span class="prog-meter-label" id="meter-drepy-txt"></span></div>
-    </div><div id="prog-drepy"></div>
-  </div>
-  <div class="prog-group">
-    <div class="prog-group-title">🔥 Core
-      <div class="prog-group-meter"><div class="prog-meter-bar"><div class="prog-meter-fill" id="meter-core"></div></div><span class="prog-meter-label" id="meter-core-txt"></span></div>
-    </div><div id="prog-core"></div>
-  </div>
-</div>
 
-<!-- HISTÓRIA -->
-<div class="page" id="page-history">
-  <div id="historyList"></div>
-</div>
+  <div class="week-strip">
+    <div class="day-pill today-pill"><div class="dp-name">Po</div><div class="dp-icon">💪</div><div class="dp-type">Core A</div></div>
+    <div class="day-pill training"><div class="dp-name">Ut</div><div class="dp-icon">🔄</div><div class="dp-type">Mobilita</div></div>
+    <div class="day-pill training"><div class="dp-name">St</div><div class="dp-icon">💪</div><div class="dp-type">Core B</div></div>
+    <div class="day-pill training"><div class="dp-name">Št</div><div class="dp-icon">🔄</div><div class="dp-type">Mobilita</div></div>
+    <div class="day-pill training"><div class="dp-name">Pi</div><div class="dp-icon">💪</div><div class="dp-type">Core A+</div></div>
+    <div class="day-pill rest"><div class="dp-name">So</div><div class="dp-icon">🐕</div><div class="dp-type">Prechádzka</div></div>
+    <div class="day-pill rest"><div class="dp-name">Ne</div><div class="dp-icon">🐕</div><div class="dp-type">Prechádzka</div></div>
+  </div>
 
-<!-- GRAF -->
-<div class="page" id="page-stats">
-  <div class="stats-summary" id="statsSummary"></div>
-  <div class="chart-wrap">
-    <div class="chart-title">Progres opakovaní</div>
-    <select class="chart-select" id="chartExSelect" onchange="renderChart()"></select>
-    <canvas id="myChart" height="200"></canvas>
-    <div class="chart-empty" id="chartEmpty" style="display:none">Žiadne dáta pre tento pohyb.</div>
+  <div class="sec-label" style="margin-bottom:8px;">Suplementy dnes</div>
+  <div class="supp-quick">
+    <div class="sq-card"><div class="sq-icon">🦴</div><div><div class="sq-name">Kolagén + vit. C</div><div class="sq-time">30 min pred tréningom</div></div></div>
+    <div class="sq-card"><div class="sq-icon">☀️</div><div><div class="sq-name">Vitamín D3</div><div class="sq-time">Ráno s jedlom</div></div></div>
+    <div class="sq-card"><div class="sq-icon">🐟</div><div><div class="sq-name">Omega-3</div><div class="sq-time">S jedlom</div></div></div>
+    <div class="sq-card"><div class="sq-icon">🌙</div><div><div class="sq-name">Magnézium</div><div class="sq-time">Pred spaním</div></div></div>
+  </div>
+
+  <div class="info-box warn">
+    <div class="info-icon">⚠️</div>
+    <div><div class="info-title">Červené vlajky – zastav a navštív lekára</div>
+    <div class="info-text">Vyžarujúca bolesť do nohy · Brnenie alebo slabosť v nohe · Problémy s močením · Ostrá bolesť pri pohybe</div></div>
   </div>
 </div>
 
-<!-- TIMER OVERLAY -->
-<div class="timer-overlay" id="timerOverlay">
-  <div class="timer-box">
-    <div class="timer-label">Pauza medzi sériami</div>
-    <div class="timer-ring-wrap">
-      <svg width="160" height="160" viewBox="0 0 160 160">
-        <circle class="timer-ring-bg" cx="80" cy="80" r="68"/>
-        <circle class="timer-ring-progress" id="timerRing" cx="80" cy="80" r="68"
-          stroke-dasharray="427" stroke-dashoffset="0"/>
-      </svg>
-      <div class="timer-center">
-        <div class="timer-count" id="timerCount">90</div>
-        <div class="timer-sec-label">sekúnd</div>
+<!-- ══ TRÉNING ══ -->
+<div class="screen" id="screen-trening">
+
+  <div class="phase-tabs">
+    <div class="ptab active" id="ptab1" onclick="switchPhase(1,this)">Fáza 1</div>
+    <div class="ptab locked" id="ptab2" onclick="tryPhase(2,this)">🔒 Fáza 2</div>
+    <div class="ptab locked" id="ptab3" onclick="tryPhase(3,this)">🔒 Fáza 3</div>
+    <div class="ptab locked" id="ptab4" onclick="tryPhase(4,this)">🔒 Fáza 4</div>
+  </div>
+
+  <div id="phase-content-1">
+    <div class="info-box success" style="margin-bottom:12px;">
+      <div class="info-icon">🎯</div>
+      <div><div class="info-title">Fáza 1 – Reaktivácia</div>
+      <div class="info-text">Žiadna záťaž – len kontrola a vedomý pohyb. Po dokončení tréningu klepni na tlačidlo dole. Po 20 tréningoch sa odomkne Fáza 2.</div></div>
+    </div>
+
+    <div class="day-tabs" id="dayTabs1">
+      <div class="dtab active" id="dtab-po" onclick="switchDay('po',this)">Po – Core A</div>
+      <div class="dtab" id="dtab-ut" onclick="switchDay('ut',this)">Ut – Mobilita</div>
+      <div class="dtab" id="dtab-st" onclick="switchDay('st',this)">St – Core B</div>
+      <div class="dtab" id="dtab-st2" onclick="switchDay('st2',this)">Št – Mobilita</div>
+      <div class="dtab" id="dtab-pi" onclick="switchDay('pi',this)">Pi – Core A+</div>
+      <div class="dtab rest">So 🐕</div>
+      <div class="dtab rest">Ne 🐕</div>
+    </div>
+
+    <!-- PONDELOK -->
+    <div id="day-po">
+      <div class="card" style="background:var(--green-xlight);border-color:var(--green-mid);margin-bottom:12px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:3px;">💪 Pondelok – Core A</div>
+        <div style="font-size:13px;color:var(--green);">Aktivácia hlbokých stabilizátorov · 5 pohybov · 20 min</div>
       </div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span><span class="tag tag-gray">3s každý smer</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na štyroch – ruky pod ramenami, kolená pod bokmi.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Nádych → prehni chrbát dolu (krava), zdvihni hlavu a kostrč. Výdych → zaokrúhli nahor (mačka), hlava dolu. Každý smer 3 sekundy.</div></div><div class="ex-tip">💡 Nie len rozcvička – mobilizácia disku. Rob vedome, cíť každý segment.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">McGill Curl-Up</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">10s výdrž</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte. Jedna noha vystretá, druhá pokrčená. Ruky POD driekovou lordózou – zachovaj zakrivenie po celý čas.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Zdvihni len hlavu a ramená – nie celý trup. Drž 8–10s. Pomaly dolu. Po sérii vymeň nohy.</div></div><div class="ex-tip">💡 Ruky pod driekon zachovávajú lordózu. Kľúčové pre ochranu L4-L5.</div><div class="ex-warn">⚠️ NIE klasický sed-ľah – ten tlačí priamo na poškodený disk.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Bird-Dog</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span><span class="tag tag-blue">8s výdrž</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na štyroch – neutrálna chrbtica, bruch mierne napnutý.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Súčasne vytiahni pravú ruku a ľavú nohu – obe rovnobežne so zemou. Drž 8s. Pomaly späť. Vymeň strany. Ak sa klátíš – zmenši rozsah.</div></div><div class="ex-tip">💡 Multifidy – kľúčové svaly pre stabilitu L-chrbtice – sa aktivujú presne pri tomto pohybe.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Gluteal Bridge</div><div class="ex-meta"><span class="tag tag-green">3 × 15</span><span class="tag tag-gray">2s hore</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte, kolená pokrčené, chodidlá na šírku bokov.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Vtlač chodidlá do zeme, zapni zadok, zdvihni boky. Priamka od ramien po kolená. Drž 2s hore. Pomaly dolu – nepoklaď medzi opakovaním.</div></div><div class="ex-section"><div class="ex-section-label">Progresia v týždni 3–4</div><div class="ex-text">Pridaj gumu nad kolená pre aktiváciu abduktorov.</div></div><div class="ex-tip">💡 Slabé gluteusy = preťažená drieková chrbtica. Jeden z najdôležitejších pohybov celého plánu.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Dead Bug</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte. Ruky kolmo nahor, kolená pokrčené 90° nahor.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Vtlač driek do podložky – MUSÍ zostať pritlačený. Súčasne spúšťaj pravú ruku za hlavu a ľavú nohu k zemi bez dotyku. Späť. Vymeň. Ak sa driek zdvíha – zmenši rozsah.</div></div><div class="ex-tip">💡 Trénuje anti-extenziu – udržanie neutrálnej chrbtice pri pohybe končatín.</div></div></div>
+      <div class="complete-day-wrap"><button class="complete-day-btn" id="complete-po" onclick="completeDay('po')">✓ Označiť tréning ako hotový</button></div>
     </div>
-    <div class="timer-actions">
-      <button class="timer-skip" onclick="skipTimer()">Preskočiť</button>
-      <button class="timer-stop" onclick="stopTimer()">Zastaviť</button>
+
+    <!-- UTOROK -->
+    <div id="day-ut" style="display:none;">
+      <div class="card" style="background:var(--blue-light);border-color:#A8C0E8;margin-bottom:12px;"><div style="font-weight:700;color:var(--blue);margin-bottom:3px;">🔄 Utorok – Mobilita & Uvoľnenie</div><div style="font-size:13px;color:var(--blue);">Aktívne zotavenie · 5 pohybov · 20 min</div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Child's Pose</div><div class="ex-meta"><span class="tag tag-green">3 × 45s</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Na kolenách, sadni na päty, ruky čo najďalej dopredu, čelo na zemi. Uvoľni sa, dýchaj do brucha. Varianty: ruky rovno / vľavo / vpravo.</div><div class="ex-tip">💡 Pri nádechu cítiš natiahnutie v driekovej oblasti – difúzna hydratácia disku.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Knee-to-Chest Stretch</div><div class="ex-meta"><span class="tag tag-green">3 × 30s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Na chrbte. Pritiahnuť jedno koleno k hrudníku, druhá noha vystretá. Drž 30s. Vymeň. Potom obidve naraz s jemným krúžením.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Piriformis Stretch – Figúra 4</div><div class="ex-meta"><span class="tag tag-green">3 × 45s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Na chrbte, kolená pokrčené. Pravý členok na ľavé stehno. Rukami chyť za ľavé stehno a pritiahnuť k hrudníku. Cítiš natiahnutie v pravom zadku.</div><div class="ex-tip">💡 Napätý piriformis môže dráždiť sedací nerv a simulovať príznaky platničky.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Hip Flexor Stretch</div><div class="ex-meta"><span class="tag tag-green">3 × 30s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Výpadový postoj – koleno na zemi, druhá noha vpredu 90°. Boky tlač dopredu. Zapni zadok zadnej nohy.</div><div class="ex-tip">💡 Skrátený iliopsoas priamo ťahá driekovú chrbticu dopredu.</div></div></div>
+      <div class="complete-day-wrap"><button class="complete-day-btn" id="complete-ut" onclick="completeDay('ut')">✓ Označiť tréning ako hotový</button></div>
     </div>
+
+    <!-- STREDA -->
+    <div id="day-st" style="display:none;">
+      <div class="card" style="background:var(--green-xlight);border-color:var(--green-mid);margin-bottom:12px;"><div style="font-weight:700;color:var(--green);margin-bottom:3px;">💪 Streda – Core B</div><div style="font-size:13px;color:var(--green);">Laterálna stabilita a gluteusy · 5 pohybov · 20 min</div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Side-Lying Clamshell</div><div class="ex-meta"><span class="tag tag-green">3 × 15</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na boku, kolená pokrčené 45°, nohy na sebe.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Drž chodidlá pri sebe – zdvihni vrchné koleno nahor. Pomaly dolu. Cíť gluteus medius. Progresia: guma nad kolenami od týždňa 2.</div></div><div class="ex-tip">💡 Slabý gluteus medius = nerovnomerné zaťaženie L-chrbtice pri každom kroku.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Side Plank na kolene</div><div class="ex-meta"><span class="tag tag-green">3 × 20–30s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Na predlaktí a spodnom kolene. Telo tvorí šikmú líniu. Zdvihni boky – drž pevne. Progresia: keď zvládneš 45s, vystrieš spodnú nohu.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Gluteal Bridge – jedna noha</div><div class="ex-meta"><span class="tag tag-green">3 × 10</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaká poloha ako základný bridge, jedna noha zdvihnutá. Zdvíhaj pomaly. Ak boky padajú – vráť sa ku klasickému bridge.</div><div class="ex-tip">💡 Odhalí silový rozdiel medzi stranami.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Plank na kolenách</div><div class="ex-meta"><span class="tag tag-green">3 × 20–30s</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Na predlaktiach a kolenách. Priamka od hlavy po kolená. Zapni bruch a zadok. Progresia: keď zvládneš 45s, prejdi na plný plank.</div><div class="ex-tip">💡 Aktívne úsilie, nie pasívne visenie. Každá sekunda musí byť vedomá.</div></div></div>
+      <div class="complete-day-wrap"><button class="complete-day-btn" id="complete-st" onclick="completeDay('st')">✓ Označiť tréning ako hotový</button></div>
+    </div>
+
+    <!-- ŠTVRTOK -->
+    <div id="day-st2" style="display:none;">
+      <div class="card" style="background:var(--blue-light);border-color:#A8C0E8;margin-bottom:12px;"><div style="font-weight:700;color:var(--blue);margin-bottom:3px;">🔄 Štvrtok – Mobilita + Dych</div><div style="font-size:13px;color:var(--blue);">Rovnaké ako utorok + bránicové dýchanie · 20 min</div></div>
+      <div class="info-box info"><div class="info-icon">📋</div><div><div class="info-title">Program štvrtka</div><div class="info-text">Rovnaké pohyby ako Utorok: Cat-Cow, Child's Pose, Knee-to-Chest, Figúra 4, Hip Flexor. Navyše bránicové dýchanie na záver.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">+</div><div class="ex-info"><div class="ex-name">Bránicové dýchanie</div><div class="ex-meta"><span class="tag tag-blue">Navyše</span><span class="tag tag-green">5 minút</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-section"><div class="ex-section-label">Poloha</div><div class="ex-text">Na chrbte, kolená pokrčené. Jedna ruka na bruchu, druhá na hrudníku.</div></div><div class="ex-section"><div class="ex-section-label">Vykonanie</div><div class="ex-text">Nádych nosom – brucho hore, hrudník pokojný. Výdych ústami – brucho dolu. Tempo: nádych 4s · zadržanie 2s · výdych 6s.</div></div><div class="ex-tip">💡 Bránica je súčasť core systému. Jej správna funkcia znižuje intradiskálny tlak na L4-L5.</div></div></div>
+      <div class="complete-day-wrap"><button class="complete-day-btn" id="complete-st2" onclick="completeDay('st2')">✓ Označiť tréning ako hotový</button></div>
+    </div>
+
+    <!-- PIATOK -->
+    <div id="day-pi" style="display:none;">
+      <div class="card" style="background:var(--green-xlight);border-color:var(--green-mid);margin-bottom:12px;"><div style="font-weight:700;color:var(--green);margin-bottom:3px;">💪 Piatok – Core A+</div><div style="font-size:13px;color:var(--green);">Najlepšia kombinácia týždňa · 25 min</div></div>
+      <div class="info-box success"><div class="info-icon">⭐</div><div><div class="info-title">Odporúčaná piatkova zostava</div><div class="info-text">Cat-Cow 2×10 → Dead Bug 3×8 → Bird-Dog 3×8 → Gluteal Bridge 3×15 → Side Plank 3×20s → Child's Pose 2×45s (cooldown). Ak ti ide lepšie ako v pondelok – si na správnej ceste.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Cat-Cow</div><div class="ex-meta"><span class="tag tag-amber">Rozcvička</span><span class="tag tag-green">2 × 10</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Dead Bug</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Bird-Dog</div><div class="ex-meta"><span class="tag tag-green">3 × 8</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Gluteal Bridge</div><div class="ex-meta"><span class="tag tag-green">3 × 15</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako pondelok.</div></div></div>
+      <div class="ex-card" onclick="toggleEx(this)"><div class="ex-header"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Side Plank na kolene</div><div class="ex-meta"><span class="tag tag-green">3 × 20s</span><span class="tag tag-gray">každá strana</span></div></div><div class="ex-arrow">▾</div></div><div class="ex-body"><div class="ex-text">Rovnaký postup ako streda.</div></div></div>
+      <div class="complete-day-wrap"><button class="complete-day-btn" id="complete-pi" onclick="completeDay('pi')">✓ Označiť tréning ako hotový</button></div>
+    </div>
+  </div>
+
+  <div id="phase-content-2" style="display:none;"><div class="phase-coming"><div class="phase-coming-icon">🔒</div><div class="phase-coming-title">Fáza 2 – Posilnenie (Týždne 5–8)</div><div class="phase-coming-sub">Odomkne sa po 20 tréningoch Fázy 1.<br><br>Čo ťa čaká: bodyweight squat, push-up, inverted row na stoličkách, romanian deadlift s gumou, pallof press. Každý pohyb bude mať progression varianty od ľahšieho po ťažší.</div></div></div>
+  <div id="phase-content-3" style="display:none;"><div class="phase-coming"><div class="phase-coming-icon">🔒</div><div class="phase-coming-title">Fáza 3 – Kalistenika (Týždne 9–12)</div><div class="phase-coming-sub">Odomkne sa po Fáze 2.<br><br>Plný kalistenikový program: zhyby, dipy, pike push-up, single-leg RDL. Core pohyby z Fázy 1 zostávajú ako ranná rutina každý deň.</div></div></div>
+  <div id="phase-content-4" style="display:none;"><div class="phase-coming"><div class="phase-coming-icon">🔒</div><div class="phase-coming-title">Fáza 4 – Plný výkon (Týždeň 13+)</div><div class="phase-coming-sub">Odomkne sa po Fáze 3.<br><br>Štandardný A/B/C kalistenikový program s rehab core zapečeným do rozcvičky natrvalo.</div></div></div>
+</div>
+
+<!-- ══ SUPLEMENTY ══ -->
+<div class="screen" id="screen-supp">
+  <div class="sec-label">Podpora zvnútra</div>
+  <div class="sec-title">Suplementy</div>
+  <div class="sec-sub">Zoradené podľa sily dôkazov</div>
+  <div style="margin-bottom:8px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);">● Silná evidencia</div>
+  <div class="supp-grid">
+    <div class="supp-card"><div class="supp-icon-big">🦴</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Hydrolyzovaný kolagén</div><div class="supp-dose">10g denne</div><div class="supp-when">⏰ 30–60 min pred tréningom + vit. C</div><div class="supp-why">Platničky sú z veľkej časti kolagén. Kľúč je načasovanie.</div></div>
+    <div class="supp-card"><div class="supp-icon-big">☀️</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Vitamín D3</div><div class="supp-dose">2000–4000 IU</div><div class="supp-when">⏰ Ráno s jedlom (tučným)</div><div class="supp-why">Väčšina Slovákov je deficitná. Priamo súvisí so zdravím chrbtice.</div></div>
+    <div class="supp-card"><div class="supp-icon-big">🌙</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Magnézium glycinát</div><div class="supp-dose">300–400mg</div><div class="supp-when">⏰ Pred spaním</div><div class="supp-why">Relaxácia svalových spazmov, kvalita spánku. Glycinát – nie oxid!</div></div>
+    <div class="supp-card"><div class="supp-icon-big">🍊</div><div class="ev-badge ev-high">Silná evidencia</div><div class="supp-name">Vitamín C</div><div class="supp-dose">500mg</div><div class="supp-when">⏰ Spolu s kolagénom</div><div class="supp-why">Nevyhnutný kofaktor pre syntézu kolagénu.</div></div>
+  </div>
+  <div style="margin:4px 0 8px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);">● Dobrá evidencia</div>
+  <div class="supp-grid">
+    <div class="supp-card"><div class="supp-icon-big">🐟</div><div class="ev-badge ev-good">Dobrá evidencia</div><div class="supp-name">Omega-3 EPA+DHA</div><div class="supp-dose">2–3g denne</div><div class="supp-when">⏰ S jedlom</div><div class="supp-why">Protizápalový efekt, znižuje neuropatickú bolesť.</div></div>
+    <div class="supp-card"><div class="supp-icon-big">🌿</div><div class="ev-badge ev-good">Dobrá evidencia</div><div class="supp-name">Kurkumín + piperíne</div><div class="supp-dose">500–1000mg</div><div class="supp-when">⏰ S jedlom (tučným)</div><div class="supp-why">Silný protizápalový efekt. MUSÍ byť s piperínom.</div></div>
+  </div>
+  <div class="card" style="background:var(--amber-light);border-color:#F0B070;"><div style="font-weight:700;color:var(--amber);margin-bottom:8px;">📦 Kde kúpiť</div><div style="font-size:13px;line-height:1.9;color:var(--ink);"><strong>Kolagén:</strong> dm, Tesco, lekáreň – "hydrolyzovaný kolagén" prášok<br><strong>D3:</strong> Lekáreň – 4000 IU (Valentis, MyProtein)<br><strong>Magnézium glycinát:</strong> Dr. Max, Pilulka – nie oxid!<br><strong>Omega-3:</strong> dm alebo lekáreň – skontroluj EPA+DHA obsah<br><strong>Kurkumín:</strong> "kurkumín s bioperínom" – Pilulka, Dr. Max</div></div>
+</div>
+
+<!-- ══ RUTINA ══ -->
+<div class="screen" id="screen-rutina">
+  <div class="sec-label">Každý deň</div>
+  <div class="sec-title">Denná rutina</div>
+  <div class="sec-sub">Pracovný deň · víkendy: prechádzka so psom</div>
+  <div class="card">
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">Ráno – pred odchodom</div><div class="tl-action">Cat-Cow + bránicové dýchanie</div><div class="tl-detail">5–10 minút. Disk sa ráno rehydroval – mobilizácia ho naštartuje na deň. Nikdy nevynechaj.</div></div>
+      <div class="tl-item"><div class="tl-time">Ráno – raňajky</div><div class="tl-action">D3 + Omega-3</div><div class="tl-detail">S jedlom obsahujúcim tuk – D3 je vitamín rozpustný v tukoch.</div></div>
+      <div class="tl-item"><div class="tl-time">Práca – každých 45–60 min</div><div class="tl-action">Vstať, 2–3 min pohybu</div><div class="tl-detail">Tlak na L4-L5 je najvyšší pri sedení. Nastav si pripomienku.</div></div>
+      <div class="tl-item"><div class="tl-time">Pred tréningom (30–60 min)</div><div class="tl-action">Kolagén 10g + Vitamín C 500mg</div><div class="tl-detail">Musí byť v krvi počas záťaže spojivového tkaniva – načasovanie je kľúčové.</div></div>
+      <div class="tl-item"><div class="tl-time">Po práci</div><div class="tl-action">Tréning podľa plánu</div><div class="tl-detail">20–25 minút. Ak si unavený – urob aspoň mobilitu.</div></div>
+      <div class="tl-item"><div class="tl-time">Večera</div><div class="tl-action">Kurkumín + piperíne</div><div class="tl-detail">S tučným jedlom pre lepšie vstrebávanie.</div></div>
+      <div class="tl-item"><div class="tl-time">Pred spaním</div><div class="tl-action">Magnézium glycinát 300–400mg</div><div class="tl-detail">Relaxácia svalov, lepší spánok. Disk sa regeneruje v noci.</div></div>
+      <div class="tl-item"><div class="tl-time">Noc</div><div class="tl-action">7–8 hodín · správna poloha</div><div class="tl-detail">Na boku: vankúš medzi kolenami. Na chrbte: vankúš pod kolenami.</div></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div class="card" style="margin-bottom:0;"><div style="font-size:22px;margin-bottom:6px;">💧</div><div style="font-weight:600;margin-bottom:3px;font-size:14px;">Hydratácia</div><div style="font-size:12px;color:var(--ink2);">Nucleus pulposus je z 80% voda. Cieľ: 2–2,5l denne.</div></div>
+    <div class="card" style="margin-bottom:0;"><div style="font-size:22px;margin-bottom:6px;">🌡️</div><div style="font-weight:600;margin-bottom:3px;font-size:14px;">Teplo</div><div style="font-size:12px;color:var(--ink2);">Pri diskomforte (nie zápal) teplo pomáha. Podložka, sprcha, sauna 2–3×/týž.</div></div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-icon" id="modalIcon">✅</div>
+    <div class="modal-title" id="modalTitle">Tréning hotový!</div>
+    <div class="modal-text" id="modalText">Skvelá práca.</div>
+    <button class="modal-btn" onclick="closeModal()">Pokračovať →</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="switchScreen('dnes',this)"><div class="nav-icon">🏠</div><div class="nav-label">Dnes</div></button>
+  <button class="nav-btn" onclick="switchScreen('trening',this)"><div class="nav-icon">💪</div><div class="nav-label">Tréning</div></button>
+  <button class="nav-btn" onclick="switchScreen('supp',this)"><div class="nav-icon">💊</div><div class="nav-label">Suplementy</div></button>
+  <button class="nav-btn" onclick="switchScreen('rutina',this)"><div class="nav-icon">📅</div><div class="nav-label">Rutina</div></button>
+</div>
 
 <script>
-// ═══════════════════════════════ PROGRESSION DATA
-const PROG_DEFS = {
-  kliky: {
-    name: 'Kľuky',
-    levels: [
-      { name:'Kľuky o stenu',          target:'3×15 čisto', serie:3, reps:15 },
-      { name:'Kľuky na kolenách',       target:'3×15 čisto', serie:3, reps:15 },
-      { name:'Normálne kľuky',          target:'3×15 čisto', serie:3, reps:15 },
-      { name:'Wide grip kľuky',         target:'3×15 čisto', serie:3, reps:15 },
-      { name:'Diamond kľuky',           target:'3×15 čisto', serie:3, reps:15 },
-      { name:'Archer kľuky',            target:'3×12 čisto', serie:3, reps:12 },
-      { name:'Pike push-up',            target:'3×12 čisto', serie:3, reps:12 },
-      { name:'Pseudo planche',          target:'3×10 čisto', serie:3, reps:10 },
-      { name:'Planche push-up 🔥',      target:'Roky práce', serie:3, reps:10 },
-    ]
-  },
-  pritahy: {
-    name: 'Príťahy',
-    levels: [
-      { name:'Reverse snow angel',      target:'3×15 čisto', serie:3, reps:15 },
-      { name:'Wall angels',             target:'3×12 čisto', serie:3, reps:12 },
-      { name:'Zhyby s odrazom',         target:'3×8 čisto',  serie:3, reps:8  },
-      { name:'Negatívne zhyby',         target:'3×5 čisto',  serie:3, reps:5  },
-      { name:'Zhyby nadhmat',           target:'3×8 čisto',  serie:3, reps:8  },
-      { name:'Chin-up (podhmat)',        target:'3×10 čisto', serie:3, reps:10 },
-    ]
-  },
-  drepy: {
-    name: 'Drepy',
-    levels: [
-      { name:'Wall squat',              target:'3×15 čisto', serie:3, reps:15 },
-      { name:'Normálny drep',           target:'3×15 čisto', serie:3, reps:15 },
-      { name:'Drep s pauzou 3 sek',     target:'3×12 čisto', serie:3, reps:12 },
-      { name:'Bulgarian split squat',   target:'3×10/noha',  serie:3, reps:10 },
-      { name:'Skokový drep',            target:'3×12 čisto', serie:3, reps:12 },
-      { name:'Pistol squat s oporou',   target:'3×8/noha',   serie:3, reps:8  },
-      { name:'Pistol squat 🔥',         target:'3×8/noha',   serie:3, reps:8  },
-    ]
-  },
-  core: {
-    name: 'Core',
-    levels: [
-      { name:'Plank na kolenách',       target:'3×30 sek',   serie:3, reps:30 },
-      { name:'Plank plný',              target:'3×45 sek',   serie:3, reps:45 },
-      { name:'Plank s výdržou nôh',     target:'3×30 sek',   serie:3, reps:30 },
-      { name:'Hollow body hold',        target:'3×30 sek',   serie:3, reps:30 },
-      { name:'L-sit na stoličkách',     target:'3×10 sek',   serie:3, reps:10 },
-      { name:'L-sit na podlahe',        target:'3×15 sek',   serie:3, reps:15 },
-      { name:'Dragon flag 🔥',          target:'3×5 čisto',  serie:3, reps:5  },
-    ]
-  }
+// ══════════ CONFIG ══════════
+const PHASES = {
+  1: { total: 20, label: 'Reaktivácia', next: 2 },
+  2: { total: 30, label: 'Posilnenie',  next: 3 },
+  3: { total: 20, label: 'Kalistenika', next: 4 },
+  4: { total: null, label: 'Plný výkon', next: null }
 };
+const DAYS = ['po','ut','st','st2','pi'];
+const DAY_NAMES = { po:'Core A – Reaktivácia', ut:'Mobilita & Uvoľnenie', st:'Core B – Stabilita', st2:'Mobilita + Dych', pi:'Core A+ – Záver týždňa' };
+const DAY_SUBS  = { po:'5 pohybov · 20 minút', ut:'5 pohybov · 20 minút', st:'5 pohybov · 20 minút', st2:'Mobilita + dych · 20 minút', pi:'Kombinácia · 25 minút' };
 
-const TRAINING_STRUCTURE = {
-  A: {
-    name: 'Tréning A — Tlaky + Core',
-    color: 'a',
-    exercises: [
-      { progGroup:'kliky',   note:'Začni ľahším variantom. Čistá technika.' },
-      { progGroup:'kliky',   note:'Keď prvý variant ide ľahko — si tu.', offset:1 },
-      { id:'dips',           name:'Triceps dips na gauči', target:'F1:2×6–8 / F2:3×10–12', note:'Ruky za sebou, lakte dozadu.', series:3 },
-      { progGroup:'core',    note:'Rovná chrbtica, nezadržuj dych.' },
-      { id:'deadbug',        name:'Mŕtvy chrobák', target:'F1:2×5/str / F2:3×8/str', note:'Chrbát tlač k zemi, pomaly.', series:3 },
-    ]
-  },
-  B: {
-    name: 'Tréning B — Ťahy + Chrbát',
-    color: 'b',
-    exercises: [
-      { progGroup:'pritahy', note:'Ľahni na brucho, oblúkový pohyb rukami.' },
-      { progGroup:'pritahy', note:'Chrbát k stene, dvíhaj ruky nahor.', offset:1 },
-      { id:'superman',       name:'Superman hold', target:'F1:2×8 / F2:3×12', note:'Drž 2 sek hore, pomaly dole.', series:3 },
-      { progGroup:'core',    note:'Telo v línii, opri sa o koleno.', offset:1 },
-      { progGroup:'core',    note:'Chrbát plochý k zemi, nohy nízko.', offset:2 },
-      { id:'shoulder-tap',   name:'Shoulder tap plank', target:'F2:2×6/str', note:'Až vo fáze 2.', series:2 },
-    ]
-  },
-  C: {
-    name: 'Tréning C — Nohy + Celé telo',
-    color: 'c',
-    exercises: [
-      { progGroup:'drepy',   note:'Chrbát o stenu, kolená 90°.' },
-      { progGroup:'drepy',   note:'Keď wall squat ide ľahko.', offset:1 },
-      { id:'vypady',         name:'Výpad — statický', target:'F1:2×6/noha / F2:3×8/noha', note:'Stoj na mieste, trup vzpriamený.', series:3 },
-      { id:'glute',          name:'Glute bridge', target:'F1:2×10 / F2:3×15', note:'Stlač zadok, drž 1 sek.', series:3 },
-      { id:'sldl',           name:'Single leg deadlift', target:'F2:2×6/noha', note:'Pomaly, rovná chrbtica, opora.', series:2 },
-      { id:'lytka',          name:'Výpony na špičky', target:'F1:2×15 / F2:3×20', note:'Pomalé spúšťanie = väčší efekt.', series:3 },
-    ]
+// ══════════ STATE ══════════
+function loadState() {
+  try { return JSON.parse(localStorage.getItem('kalirehab_v2') || 'null') || defaultState(); }
+  catch(e) { return defaultState(); }
+}
+function defaultState() {
+  return { phase: 1, completed: { 1:[], 2:[], 3:[], 4:[] }, unlocked: [1] };
+}
+function save() { localStorage.setItem('kalirehab_v2', JSON.stringify(ST)); }
+
+let ST = loadState();
+let currentPhaseView = 1;
+let currentDayView = 'po';
+
+// ══════════ INIT ══════════
+function init() {
+  refreshAll();
+  // auto-select next suggested day in training view
+  const nextDay = getNextDay();
+  switchDay(nextDay, document.getElementById('dtab-' + nextDay));
+}
+
+function refreshAll() {
+  updateHeader();
+  updateProgressCard();
+  updateTodayCard();
+  updatePhaseTabs();
+  updateCompleteBtns();
+}
+
+// ══════════ HEADER ══════════
+function updateHeader() {
+  const p = ST.phase;
+  document.getElementById('headerBadge').textContent = 'Fáza ' + p;
+  const segs = document.getElementById('phaseBarSegs').children;
+  for (let i = 0; i < 4; i++) {
+    const n = i + 1;
+    segs[i].className = 'pb-seg' + (n < p ? ' done' : n === p ? ' active' : '');
   }
-};
-
-// ═══════════════════════════════ STORAGE
-function gS(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch{ return d; } }
-function sS(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch{} }
-function getProgLevel(key){ return gS('kt_prog_'+key, 0); }
-function setProgLevel(key, lv){ sS('kt_prog_'+key, lv); }
-
-// ═══════════════════════════════ RESOLVE EXERCISE
-function resolveExercise(exDef) {
-  if (exDef.id) {
-    return { id: exDef.id, name: exDef.name, target: exDef.target, note: exDef.note, series: exDef.series || 3 };
-  }
-  const group = PROG_DEFS[exDef.progGroup];
-  const currentLevel = getProgLevel(exDef.progGroup);
-  const levelIndex = Math.min(currentLevel + (exDef.offset || 0), group.levels.length - 1);
-  const level = group.levels[levelIndex];
-  return {
-    id: exDef.progGroup + '_' + levelIndex,
-    name: level.name,
-    target: level.target,
-    note: exDef.note,
-    series: level.serie || 3,
-    progGroup: exDef.progGroup,
-    levelIndex,
-    isProgLinked: true,
-  };
+  document.getElementById('phaseBarLabel').textContent = PHASES[p].label;
 }
 
-// ═══════════════════════════════ NAV
-function showPage(page, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-'+page).classList.add('active');
-  if (el) el.classList.add('active');
-  sS('kt_lastPage', page);
-  if (page==='history') renderHistory();
-  if (page==='progress') renderProgression();
-  if (page==='stats') { renderStatsSummary(); populateChartSelect(); renderChart(); }
-}
-
-function renderStatsSummary() {
-  const history = gS('kt_history', []);
-  const total = history.length;
-  const streak = calcStreak();
-  const sevenDaysAgo = new Date(); sevenDaysAgo.setDate(sevenDaysAgo.getDate()-7);
-  const last7 = history.filter(h => new Date(h.date) >= sevenDaysAgo).length;
-  const el = document.getElementById('statsSummary');
-  if (!el) return;
-  el.innerHTML = `
-    <div class="stats-card">
-      <div class="stats-card-val">${total}</div>
-      <div class="stats-card-label">Celkom</div>
-    </div>
-    <div class="stats-card">
-      <div class="stats-card-val">${last7}</div>
-      <div class="stats-card-label">7 dní</div>
-    </div>
-    <div class="stats-card">
-      <div class="stats-card-val" style="color:var(--accent2)">${streak}🔥</div>
-      <div class="stats-card-label">Séria</div>
-    </div>
-  `;
-}
-
-// Header
-const now = new Date();
-document.getElementById('headerDate').textContent = now.toLocaleDateString('sk-SK',{weekday:'long',day:'numeric',month:'short'});
-
-// Streak
-function calcStreak() {
-  const history = gS('kt_history', []);
-  if (!history.length) return 0;
-  const dates = [...new Set(history.map(h=>h.date))].sort().reverse();
-  let streak = 0;
-  let today = new Date(); today.setHours(0,0,0,0);
-  for (let i=0; i<dates.length; i++) {
-    const d = new Date(dates[i]); d.setHours(0,0,0,0);
-    const diff = Math.round((today - d) / 86400000);
-    if (diff === i || diff === i+1) streak++;
-    else break;
-  }
-  return streak;
-}
-const streak = calcStreak();
-if (streak > 0) document.getElementById('headerStreak').textContent = `🔥 ${streak} dni v sérii`;
-
-function todayISO(){ return new Date().toISOString().split('T')[0]; }
-function fmtDate(iso){ return new Date(iso).toLocaleDateString('sk-SK',{day:'numeric',month:'short',year:'numeric'}); }
-
-// ═══════════════════════════════ TRAINING
-let currentDay = null;
-let resolvedExercises = [];
-let doneMap = {};
-
-function selectDay(day) {
-  currentDay = day;
-  doneMap = {};
-  ['A','B','C'].forEach(d => {
-    const btn = document.getElementById('btn-'+d.toLowerCase());
-    btn.className = 'day-btn' + (d===day ? ' sel-'+d.toLowerCase() : '');
-  });
-  const t = TRAINING_STRUCTURE[day];
-  document.getElementById('trainLabel').textContent = t.name;
-  resolvedExercises = t.exercises.map(ex => resolveExercise(ex));
-  renderExercises();
-  document.getElementById('saveBtn').style.display = 'block';
-}
-
-function getLastSeries(day, exId) {
-  const history = gS('kt_history', []);
-  for (let i = history.length-1; i >= 0; i--) {
-    if (history[i].day === day) {
-      const ex = history[i].exercises.find(e => e.id === exId);
-      if (ex) return ex.series;
-    }
-  }
-  return null;
-}
-
-function renderExercises() {
-  const list = document.getElementById('exerciseList');
-  list.innerHTML = '';
-  resolvedExercises.forEach((ex, idx) => {
-    const last = getLastSeries(currentDay, ex.id);
-    let lastHtml = '';
-    if (last && last.some(v=>v)) {
-      const chips = last.map((v,i) =>
-        `<span class="ex-last-chip">${v||'—'}</span>`
-      ).join('');
-      lastHtml = `<div class="ex-last-chips"><span class="ex-last-label">Minule:</span>${chips}</div>`;
-    }
-    const progBadge = ex.isProgLinked
-      ? `<span class="level-badge">Lv ${ex.levelIndex+1}</span>` : '';
-
-    let inputs = '';
-    for (let i=0; i<ex.series; i++) {
-      const hint = last && last[i] ? `placeholder="${last[i]}"` : `placeholder="—"`;
-      inputs += `<div class="serie-wrap">
-        <div class="serie-label">Séria ${i+1}</div>
-        <input class="serie-input" type="number" min="0" max="99" ${hint}
-          id="ex-${idx}-s${i}" inputmode="numeric">
-      </div>`;
-    }
-
-    const card = document.createElement('div');
-    card.className = 'exercise-card';
-    card.id = 'card-'+idx;
-    card.innerHTML = `
-      <div class="ex-top">
-        <div class="ex-name">${ex.name}${progBadge}</div>
-        <div class="ex-target">${ex.target}</div>
-      </div>
-      <div class="ex-note">${ex.note}</div>
-      ${lastHtml}
-      <div class="series-grid">${inputs}</div>
-      <div class="prog-bar-wrap"><div class="prog-bar-fill" id="bar-${idx}" style="width:0%"></div></div>
-      <button class="timer-btn" onclick="startTimer(${idx})">⏱ Pauza 90 sek</button>
-      <button class="ex-done-btn" id="done-${idx}" onclick="markDone(${idx})">✓ Označiť ako hotové</button>
-    `;
-    list.appendChild(card);
-
-    for (let i=0; i<ex.series; i++) {
-      setTimeout(() => {
-        const inp = document.getElementById(`ex-${idx}-s${i}`);
-        if (inp) inp.addEventListener('input', () => updateBar(idx));
-      }, 0);
-    }
-  });
-}
-
-function updateBar(idx) {
-  const ex = resolvedExercises[idx];
-  let filled = 0;
-  for (let i=0; i<ex.series; i++) {
-    const v = document.getElementById(`ex-${idx}-s${i}`)?.value;
-    if (v && parseInt(v) > 0) filled++;
-  }
-  const bar = document.getElementById('bar-'+idx);
-  if (bar) bar.style.width = (filled/ex.series*100)+'%';
-}
-
-function markDone(idx) {
-  const btn = document.getElementById('done-'+idx);
-  const card = document.getElementById('card-'+idx);
-  if (btn.classList.contains('done')) {
-    btn.classList.remove('done'); btn.textContent = '✓ Označiť ako hotové';
-    card.classList.remove('done'); doneMap[idx] = false;
-  } else {
-    btn.classList.add('done'); btn.textContent = '✓ Dokončené';
-    card.classList.add('done'); doneMap[idx] = true;
-    document.getElementById('bar-'+idx).style.width = '100%';
-  }
-}
-
-function saveTraining() {
-  if (!currentDay) return;
-  const exercises = resolvedExercises.map((ex, idx) => {
-    const series = [];
-    for (let i=0; i<ex.series; i++) {
-      series.push(document.getElementById(`ex-${idx}-s${i}`)?.value || '');
-    }
-    return { id: ex.id, name: ex.name, series };
-  });
-  const history = gS('kt_history', []);
-  history.push({ date: todayISO(), day: currentDay, exercises });
-  sS('kt_history', history);
-  showToast('Tréning uložený! 💪');
-  selectDay(currentDay);
-}
-
-// ═══════════════════════════════ TIMER
-let timerInterval = null;
-let timerSeconds = 0;
-const TIMER_TOTAL = 90;
-const RING_CIRC = 2 * Math.PI * 68; // 427.26
-
-function startTimer(idx) {
-  timerSeconds = TIMER_TOTAL;
-  const ring = document.getElementById('timerRing');
-  const count = document.getElementById('timerCount');
-  count.textContent = timerSeconds;
-  count.className = 'timer-count';
-  ring.className = 'timer-ring-progress';
-  ring.style.strokeDashoffset = '0';
-  document.getElementById('timerOverlay').classList.add('show');
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    timerSeconds--;
-    count.textContent = timerSeconds;
-    const progress = 1 - (timerSeconds / TIMER_TOTAL);
-    ring.style.strokeDashoffset = (RING_CIRC * progress).toFixed(1);
-    if (timerSeconds <= 0) {
-      clearInterval(timerInterval);
-      count.textContent = '✓';
-      count.className = 'timer-count done-c';
-      ring.className = 'timer-ring-progress done-ring';
-      ring.style.strokeDashoffset = RING_CIRC.toFixed(1);
-      setTimeout(() => document.getElementById('timerOverlay').classList.remove('show'), 1400);
-    }
-  }, 1000);
-}
-
-function skipTimer() { clearInterval(timerInterval); document.getElementById('timerOverlay').classList.remove('show'); }
-function stopTimer() { clearInterval(timerInterval); document.getElementById('timerOverlay').classList.remove('show'); }
-
-// ═══════════════════════════════ PROGRESSION
-function renderProgression() {
-  ['kliky','pritahy','drepy','core'].forEach(key => {
-    const group = PROG_DEFS[key];
-    const current = getProgLevel(key);
-    const container = document.getElementById('prog-'+key);
-    container.innerHTML = '';
-
-    // Update meter
-    const pct = Math.round((current / group.levels.length) * 100);
-    const meterFill = document.getElementById('meter-'+key);
-    const meterTxt = document.getElementById('meter-'+key+'-txt');
-    if (meterFill) meterFill.style.width = pct+'%';
-    if (meterTxt) meterTxt.textContent = `${current}/${group.levels.length}`;
-
-    group.levels.forEach((lv, idx) => {
-      const isCur = idx === current;
-      const isDone = idx < current;
-      const div = document.createElement('div');
-      div.className = 'prog-item' + (isCur?' current':'') + (isDone?' completed':'');
-      div.innerHTML = `
-        <div class="prog-num">${isDone?'✓':idx+1}</div>
-        <div class="prog-variant">${lv.name}</div>
-        <div class="prog-target">${lv.target}</div>
-        ${isCur?'<span class="prog-badge badge-cur">AKTUÁLNY</span>':''}
-        ${isDone?'<span class="prog-badge badge-done">SPLNENÝ</span>':''}
-      `;
-      if (isCur && idx < group.levels.length-1) {
-        div.addEventListener('click', () => {
-          if (confirm(`Splnil si: "${lv.name}"?\n${lv.target}\n\nTréning sa automaticky aktualizuje.`)) {
-            setProgLevel(key, current+1);
-            renderProgression();
-            showToast('Postup! Tréning aktualizovaný 🔓');
-          }
-        });
-      }
-      container.appendChild(div);
+// ══════════ PROGRESS CARD ══════════
+function updateProgressCard() {
+  const p = ST.phase;
+  const done = ST.completed[p].length;
+  const total = PHASES[p].total;
+  document.getElementById('progTitle').textContent = 'Fáza ' + p + ' – ' + PHASES[p].label;
+  document.getElementById('progDone').textContent = done;
+  document.getElementById('progTotal').textContent = total ? ' / ' + total : ' tréningov';
+  const pct = total ? Math.min(100, (done / total) * 100) : 100;
+  document.getElementById('progFill').style.width = pct + '%';
+  // milestones
+  if (total) {
+    const mVals = [0, Math.floor(total*0.25), Math.floor(total*0.5), total];
+    const mLabels = ['Štart', '¼', '½', 'Fáza '+(p+1)+' 🔓'];
+    ['pm0','pm1','pm2','pm3'].forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = mLabels[i];
+      el.className = 'prog-milestone' + (done >= mVals[i] && mVals[i] > 0 ? ' reached' : '');
     });
-  });
-}
-
-// ═══════════════════════════════ HISTORY
-function renderHistory() {
-  const history = gS('kt_history', []);
-  const container = document.getElementById('historyList');
-  container.innerHTML = '';
-  if (!history.length) {
-    container.innerHTML = `<div class="history-empty"><span class="big">📋</span>Zatiaľ žiadna história.<br>Odtrénuj prvý tréning!</div>`;
-    return;
   }
-  [...history].reverse().forEach((entry, rIdx) => {
-    const idx = history.length-1-rIdx;
-    const div = document.createElement('div');
-    div.className = 'history-entry';
-    const exRows = entry.exercises.map(ex => {
-      const vals = ex.series.map(v=>`<span class="hist-val">${v||'—'}</span>`).join('');
-      return `<div class="hist-row"><span class="hist-name">${ex.name}</span><div class="hist-vals">${vals}</div></div>`;
-    }).join('');
-    div.innerHTML = `
-      <div class="history-hdr">
-        <span class="hist-badge badge-${entry.day.toLowerCase()}">Tréning ${entry.day}</span>
-        <div style="display:flex;align-items:center;gap:8px">
-          <span class="hist-date">${fmtDate(entry.date)}</span>
-          <button class="hist-del" onclick="deleteEntry(${idx})">✕</button>
-        </div>
-      </div>
-      <div class="hist-exercises">${exRows}</div>
-    `;
-    container.appendChild(div);
+}
+
+// ══════════ TODAY CARD ══════════
+function getNextDay() {
+  const p = ST.phase;
+  const done = ST.completed[p].length;
+  return DAYS[done % DAYS.length];
+}
+function updateTodayCard() {
+  const p = ST.phase;
+  const day = getNextDay();
+  document.getElementById('todayPhaseSub').textContent = 'Fáza ' + p + ' – ' + PHASES[p].label;
+  document.getElementById('todayName').textContent = DAY_NAMES[day] || '–';
+  document.getElementById('todaySub').textContent = (DAY_SUBS[day] || '') + ' · po práci';
+}
+
+// ══════════ PHASE TABS ══════════
+function updatePhaseTabs() {
+  [1,2,3,4].forEach(n => {
+    const tab = document.getElementById('ptab' + n);
+    if (!tab) return;
+    const isUnlocked = ST.unlocked.includes(n);
+    const isActive = n === currentPhaseView;
+    tab.className = 'ptab' + (isActive ? ' active' : isUnlocked ? ' unlocked' : ' locked');
+    tab.textContent = (isUnlocked ? '' : '🔒 ') + 'Fáza ' + n;
   });
 }
 
-function deleteEntry(idx) {
-  if (!confirm('Vymazať tento záznam?')) return;
-  const history = gS('kt_history', []);
-  history.splice(idx, 1);
-  sS('kt_history', history);
-  renderHistory();
-  showToast('Záznam vymazaný');
+// ══════════ COMPLETE BUTTONS ══════════
+function updateCompleteBtns() {
+  const p = ST.phase;
+  const done = ST.completed[p];
+  // "done this round" = last N completed entries cover this day slot
+  // Simple approach: track last full week cycle
+  const lastFive = done.slice(-DAYS.length);
+  DAYS.forEach(day => {
+    const btn = document.getElementById('complete-' + day);
+    if (!btn) return;
+    const alreadyDone = lastFive.includes(day);
+    btn.textContent = alreadyDone ? '✓ Tento tréning už máš za sebou' : '✓ Označiť tréning ako hotový';
+    btn.className = 'complete-day-btn' + (alreadyDone ? ' already-done' : '');
+    btn.disabled = alreadyDone;
+  });
 }
 
-// ═══════════════════════════════ CHART
-function getAllExerciseNames() {
-  const history = gS('kt_history', []);
-  const names = new Set();
-  history.forEach(entry => entry.exercises.forEach(ex => names.add(ex.name)));
-  return [...names];
-}
+// ══════════ COMPLETE DAY ══════════
+function completeDay(day) {
+  const p = ST.phase;
+  const lastFive = ST.completed[p].slice(-DAYS.length);
+  if (lastFive.includes(day)) return;
 
-function populateChartSelect() {
-  const sel = document.getElementById('chartExSelect');
-  const names = getAllExerciseNames();
-  const current = sel.value;
-  sel.innerHTML = names.length
-    ? names.map(n=>`<option value="${n}" ${n===current?'selected':''}>${n}</option>`).join('')
-    : '<option>Žiadne dáta</option>';
-}
+  ST.completed[p].push(day);
+  const total = ST.completed[p].length;
+  const phaseTotal = PHASES[p].total;
+  save();
+  refreshAll();
 
-let chartInstance = null;
-
-function renderChart() {
-  const sel = document.getElementById('chartExSelect');
-  const exName = sel.value;
-  const history = gS('kt_history', []);
-  const canvas = document.getElementById('myChart');
-  const empty = document.getElementById('chartEmpty');
-
-  const points = [];
-  history.forEach(entry => {
-    const ex = entry.exercises.find(e => e.name === exName);
-    if (ex) {
-      const vals = ex.series.map(v => parseInt(v)||0).filter(v=>v>0);
-      if (vals.length) {
-        const avg = Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
-        points.push({ date: entry.date, avg });
-      }
+  if (phaseTotal && total >= phaseTotal) {
+    const next = PHASES[p].next;
+    if (next && !ST.unlocked.includes(next)) {
+      ST.unlocked.push(next);
+      if (next === ST.phase + 1) ST.phase = next; // auto-advance? No – keep, let user see
+      save();
+      updatePhaseTabs();
+      showModal('🎊', 'Fáza ' + p + ' splnená!', 'Neuveriteľná práca – ' + total + ' tréningov odcvičených. Fáza ' + next + ' je teraz odomknutá!');
     }
-  });
-
-  if (!points.length) { canvas.style.display='none'; empty.style.display='block'; return; }
-  canvas.style.display='block'; empty.style.display='none';
-
-  const labels = points.map(p => new Date(p.date).toLocaleDateString('sk-SK',{day:'numeric',month:'short'}));
-  const data = points.map(p=>p.avg);
-
-  if (chartInstance) { chartInstance.destroy(); chartInstance=null; }
-
-  const ctx = canvas.getContext('2d');
-  const W = canvas.offsetWidth || 320;
-  canvas.width = W; canvas.height = 220;
-  ctx.clearRect(0,0,W,220);
-
-  if (data.length < 2) {
-    ctx.fillStyle='#6b6b80'; ctx.font='13px Cabinet Grotesk, sans-serif';
-    ctx.fillText('Potrebuješ aspoň 2 záznamy pre graf.',16,110); return;
+  } else {
+    const rem = phaseTotal ? phaseTotal - total : '–';
+    showModal('✅', 'Tréning hotový!', 'Výborne! Zostáva ti ' + rem + ' tréningov do odomknutia ďalšej fázy.');
   }
-
-  const pad = { l:40, r:16, t:20, b:40 };
-  const gW = W - pad.l - pad.r;
-  const gH = 220 - pad.t - pad.b;
-  const maxV = Math.max(...data) + 2;
-  const minV = Math.max(0, Math.min(...data)-2);
-  const range = maxV - minV || 1;
-
-  // Grid
-  ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=1;
-  [0,0.25,0.5,0.75,1].forEach(f => {
-    const y = pad.t + gH*(1-f);
-    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+gW,y); ctx.stroke();
-    const val = Math.round(minV + range*f);
-    ctx.fillStyle='#6b6b80'; ctx.font='10px DM Mono, monospace'; ctx.textAlign='right';
-    ctx.fillText(val, pad.l-8, y+4);
-  });
-
-  const pts = data.map((v,i) => ({
-    x: pad.l + (i/(data.length-1))*gW,
-    y: pad.t + gH*(1-(v-minV)/range)
-  }));
-
-  // Gradient fill
-  const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t+gH);
-  grad.addColorStop(0, 'rgba(232,255,71,0.15)');
-  grad.addColorStop(1, 'rgba(232,255,71,0)');
-  ctx.fillStyle = grad;
-  ctx.beginPath();
-  pts.forEach((p,i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y));
-  ctx.lineTo(pts[pts.length-1].x, pad.t+gH);
-  ctx.lineTo(pts[0].x, pad.t+gH);
-  ctx.closePath(); ctx.fill();
-
-  // Line
-  ctx.strokeStyle='#e8ff47'; ctx.lineWidth=2.5; ctx.lineJoin='round'; ctx.lineCap='round';
-  ctx.beginPath();
-  pts.forEach((p,i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y));
-  ctx.stroke();
-
-  // Dots
-  pts.forEach((p,i) => {
-    ctx.fillStyle='#e8ff47';
-    ctx.beginPath(); ctx.arc(p.x,p.y,5,0,Math.PI*2); ctx.fill();
-    ctx.fillStyle='#0c0c0e';
-    ctx.beginPath(); ctx.arc(p.x,p.y,2.5,0,Math.PI*2); ctx.fill();
-  });
-
-  // X labels
-  ctx.fillStyle='#6b6b80'; ctx.font='9px DM Mono, monospace'; ctx.textAlign='center';
-  pts.forEach((p,i) => {
-    if (data.length <= 8 || i%(Math.ceil(data.length/6))===0) {
-      ctx.fillText(labels[i], p.x, 220-pad.b+16);
-    }
-  });
 }
 
-// ═══════════════════════════════ TOAST
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+function quickComplete() {
+  const day = getNextDay();
+  // switch to training screen first
+  goToTodayDay();
+  setTimeout(() => completeDay(day), 300);
 }
 
-// Init
-selectDay('A');
+// ══════════ NAVIGATION ══════════
+function switchScreen(id, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function goToTraining() {
+  switchScreen('trening', document.querySelectorAll('.nav-btn')[1]);
+}
+
+function goToTodayDay() {
+  goToTraining();
+  const day = getNextDay();
+  switchDay(day, document.getElementById('dtab-' + day));
+}
+
+function switchPhase(num, el) {
+  if (!ST.unlocked.includes(num)) return;
+  currentPhaseView = num;
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  [1,2,3,4].forEach(n => {
+    const c = document.getElementById('phase-content-' + n);
+    if (c) c.style.display = n === num ? 'block' : 'none';
+  });
+  window.scrollTo(0,0);
+}
+
+function tryPhase(num, el) {
+  if (ST.unlocked.includes(num)) { switchPhase(num, el); return; }
+  const p = ST.phase;
+  const rem = PHASES[p].total - ST.completed[p].length;
+  showModal('🔒', 'Fáza ' + num + ' je zamknutá', 'Najprv dokonči Fázu ' + p + '. Zostáva ti ' + rem + ' tréningov.');
+}
+
+function switchDay(day, el) {
+  currentDayView = day;
+  DAYS.forEach(d => {
+    const e = document.getElementById('day-' + d);
+    if (e) e.style.display = d === day ? 'block' : 'none';
+  });
+  document.querySelectorAll('#dayTabs1 .dtab:not(.rest)').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ══════════ EXERCISE ACCORDION ══════════
+function toggleEx(card) {
+  const wasOpen = card.classList.contains('open');
+  card.closest('[id^="day-"]')?.querySelectorAll('.ex-card').forEach(c => c.classList.remove('open'));
+  if (!wasOpen) card.classList.add('open');
+}
+
+// ══════════ MODAL ══════════
+function showModal(icon, title, text) {
+  document.getElementById('modalIcon').textContent = icon;
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalText').textContent = text;
+  document.getElementById('modalOverlay').classList.add('visible');
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('visible');
+}
+
+init();
 </script>
 </body>
 </html>
